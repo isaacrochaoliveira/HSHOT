@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.arvo-regular {
+  font-family: "Arvo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* CSS Document */
+
+body {
+    font-family: "Arvo", sans-serif;
+    font-size: 12px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../imagens/background_header.jpg') no-repeat center center/cover;
+}
+
+header{
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+} header div.menu-header a {
+    font-size: 60px;
+    color: white;
+}
+
+#section-home_login {
+    padding: 200px 0;
+    color: white;
+}
+
+#section-home_login h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+} 
+
+#section-home_login p {
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+.btn-login {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.btn-signup {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-signup:hover {
+    background-color: #1e7e34;
+    color: white;
+}
+
+/* FOOTER SETTINGS */
+
+footer {
+    font-family: "Arvo", sans-serif;
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
