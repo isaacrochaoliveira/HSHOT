@@ -1,7 +1,3 @@
-<?php
-    require_once 'db/connect.php';  
-    require_once 'db/autenticator.php';
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,51 +9,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../imagens/background_header.jpg') no-repeat center center/cover;
-        }
-    </style>
 </head>
-
-<body id="home">
+<body>
     <header class="py-3 mb-4 border-bottom">
         <div class="container d-flex flex-wrap justify-content-center menu-header">
             <a href="/" class="d-flex text-center text-decoration-none anton-regular">
                 HSHOT
             </a>
         </div>
-        <!--<nav class="py-2">
+        <nav class="py-2">
             <div class="container d-flex flex-wrap">
                 <ul class="nav me-auto text-white">
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2 active" aria-current="page">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white px-2 active" aria-current="page">Painel</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">Features</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">Pricing</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2">About</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil</a></li>
                 </ul>
                 <ul class="nav">
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">Login</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">Sign up</a></li>
                 </ul>
             </div>
-        </nav>-->
+        </nav>
     </header>
-    <section id="section-home_login">
-        <div class="container">
-            <h1 class="anton-regular text-center">Sistema para Leitura Bíblica</h1>
-            <p class="text-center arvo-regular">Organize e acompanhe sua leitura da Bíblia de forma eficiente.</p>
-            <p class="arvo-regular text-center">(OBS) É importante que você acesse esse sistema de uma mesma rede, pois usamos seu endereço IP para autenticação.</p>
-            <div class="d-flex justify-content-center">
-                <a href="home.php" class="me-2 btn-login">IR PARA PAINEL</a>
-                <a href="https://hshot.com.br" class="btn-signup">VOLTAR PARA O SITE</a>
-            </div>
-        </div>
-    </section>
-    <footer>
-        <p>&copy; 2025 HSHOT. Todos os direitos reservados.</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
-
 </html>
