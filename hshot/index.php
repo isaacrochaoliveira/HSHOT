@@ -1,3 +1,8 @@
+<?php
+    require_once 'db/connect.php';  
+    require_once 'db/autenticator.php';
+    require_once 'db/get_IP.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -39,6 +44,7 @@
         <div class="container">
             <h1 class="anton-regular text-center">Sistema para Leitura Bíblica</h1>
             <p class="text-center arvo-regular">Organize e acompanhe sua leitura da Bíblia de forma eficiente.</p>
+            <p class="arvo-regular text-center">(OBS) É importante que você acesse esse sistema de uma mesma rede, pois usamos seu endereço IP para autenticação.</p>
             <div class="d-flex justify-content-center">
                 <a href="#" class="me-2 btn-login">Login</a>
                 <a href="#" class="btn-signup">Sign up</a>
