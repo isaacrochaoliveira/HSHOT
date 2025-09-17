@@ -46,7 +46,7 @@ if(isset($_GET['pag'])){
             </div>
         </nav>
     </header>
-    <section class="container">
+    <section class="p-3">
         <?php 
             if($pag == "leitura"){
                 require_once 'painel/leitura/leitura.php';
@@ -56,5 +56,5 @@ if(isset($_GET['pag'])){
         ?>
     </section>
 </body>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </html>
