@@ -2,19 +2,16 @@
 
 require_once 'db/connect.php';
 
-$sql = $pdo->query("SELECT * FROM livros;");
-$res = $sql->fetchAll(PDO::FETCH_ASSOC);
+$cap = addslashes($_GET['livro']);
 
-for ($i = 0; $i < count($res); $i++) {
-    if ($i < 39) {
-        $cor = "00B356";
-    } else {
-        $cor = '0098B3';
-    }
+$sql = $pdo->query("SELECT * FROM capitulos WHERE id_c = '$cap';");
+$res = $sql->fetchAll(PDO::FETCH_ASSOC);
+$total = $res[0]['quant_c'];
+for ($i = 1; $i < $total + 1; $i++) {
 ?>
-    <a href="home.php?pag=leitura&livro=<?php echo $res[$i]['id_l']; ?>" class="cap_a">
-        <div class="cap" style="background-color: #<?php echo $cor; ?>">
-            <p><?php echo $res[$i]['nome_livro']; ?></p>
+    <a href="home.php?pag=leitura&livro=<?php echo $i; ?>" class="cap_a">
+        <div class="cap">
+            <p><?php echo $i ?></p>
         </div>
     </a>
 <?php

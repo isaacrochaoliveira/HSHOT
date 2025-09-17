@@ -21,7 +21,6 @@ require_once 'db/autenticator.php';
             <div class="mst_li">
                 <div class="d-flex flex-wrap gap-2">
                     <?php require_once 'painel/leitura/code/listar_capitulos.php'; ?>
-                    </div>
                 </div>
             </div>
             <?php

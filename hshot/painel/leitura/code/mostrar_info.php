@@ -11,8 +11,8 @@ if (!(isset($_GET['livro']))) {
     $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 
     ?>
-        <h1><?php echo $res[0]['nome_livro']; ?></h1>
-        <h2><?php echo $res[0]['testa_livro']; ?></h2>
-    
+        <h4 class="arvo-regular"><?php echo $res[0]['nome_livro']; ?></h4>
+        <h1 class="anton-regular"><?php echo $res[0]['testa_livro']; ?></h1>
     <?php
 }
+    
