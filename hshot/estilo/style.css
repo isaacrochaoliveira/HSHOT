@@ -1,5 +1,27 @@
 @charset "UTF-8";
 
+.f-24 {
+    font-size: 24px;
+}
+
+.f-20 {
+    font-size: 20px;
+}
+
+.f-16 {
+    font-size: 16px;
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+.f-12 {
+    font-size: 12px;
+}
+
+
+
 .anton-regular {
     font-family: "Anton", sans-serif;
     font-weight: 400;
