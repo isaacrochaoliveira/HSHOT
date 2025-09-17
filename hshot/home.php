@@ -1,3 +1,15 @@
+<?php 
+require_once 'db/connect.php';
+require_once 'db/autenticator.php';
+@session_start();
+
+$pag = "";
+
+if(isset($_GET['pag'])){
+    $pag = $_GET['pag'];
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -20,8 +32,8 @@
         <nav class="py-2">
             <div class="container d-flex flex-wrap">
                 <ul class="nav me-auto text-white">
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2 active" aria-current="page">Painel</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2">Features</a></li>
+                    <li class="nav-item"><a href="home.php" class="nav-link text-white px-2 active" aria-current="page">Painel</a></li>
+                    <li class="nav-item"><a href="home.php?pag=leitura" class="nav-link text-white px-2">Leitura</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">Pricing</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">FAQs</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil</a></li>
@@ -33,5 +45,14 @@
             </div>
         </nav>
     </header>
+    <section class="container">
+        <?php 
+            if($pag == "leitura"){
+                require_once 'painel/leitura/leitura.php';
+            }else{
+                require_once 'painel/home.php';
+            }
+        ?>
+    </section>
 </body>
 </html>
