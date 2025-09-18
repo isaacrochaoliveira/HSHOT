@@ -1,5 +1,25 @@
 @charset "UTF-8";
 
+.f-60 {
+    font-size: 60px;
+}
+
+.f-50 {
+    font-size: 50px;
+}   
+
+.f-40 {
+    font-size: 40px;
+}   
+
+.f-36 {
+    font-size: 36px;
+}
+
+.f-26 {
+    font-size: 26px;
+}
+
 .f-24 {
     font-size: 24px;
 }

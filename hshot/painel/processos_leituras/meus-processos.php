@@ -113,7 +113,8 @@ require_once 'db/autenticator.php';
             </div>
             <div class="modal-footer">
                 <input type="text" id="idInfo_PL" hidden>
-                <a href="#" title="Detalhes de Cada Capítulo" class="f-20"><i class="fa-solid fa-book-bible"></i></a>
+                <a href="#" title="Visualizar Versículo Destacado" class="f-26 text-warning"><i class="fa-solid fa-book-open"></i></a>
+                <a href="#" title="Detalhes de Cada Capítulo" class="f-26"><i class="fa-solid fa-book-bible"></i></a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
@@ -152,7 +153,7 @@ require_once 'db/autenticator.php';
 </div>
 
 <div class="modal fade" id="ModalDestacarVers" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Destacar Versículo</h1>
@@ -186,11 +187,22 @@ require_once 'db/autenticator.php';
                         </div>
                     </div>
                 </div>
-
+                <div class="form_group my-2">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Versículo" id="versiculo_texto" style="height: 100px"></textarea>
+                        <label for="versiculo_texto">Versículo Referido</label>
+                    </div>
+                </div>
+                <div class="form-group my-2">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Descrição do Destaque" id="desc_destacar" style="height: 100px"></textarea>
+                        <label for="desc_destacar">O que você entendeu do versículo?</label>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <input type="text" id="idLivro" hidden>
-                <button type="button" class="btn btn-primary" id="btnInsCap_PL">Inserir</button>
+                <input type="text" id="id_PL" hidden>
+                <button type="button" class="btn btn-warning" id="btnDestacar">Destacar</button>
             </div>
         </div>
     </div>
@@ -322,6 +334,45 @@ require_once 'db/autenticator.php';
                 id: id,
                 quant_cap: quant_cap,
                 data_cap: data_cap
+            },
+            success: function(data) {
+                alert(data);
+                location.reload();
+            }
+        });
+    });
+</script>
+
+<script>
+    $('#btnDestacar').click(function() {
+        var id = $('#id_PL').val();
+        var capitulo = $('#capitulo_destacar').val();
+        var versiculo = $('#versiculo_destacar').val();
+        var versiculo_texto = $('#versiculo_texto').val();
+        var desc_destacar = $('#desc_destacar').val();
+
+        if (capitulo == "" || capitulo <= 0) {
+            alert("Preencha o capítulo");
+            return false;
+        }
+        if (versiculo == "" || versiculo <= 0) {
+            alert("Preencha o versículo");
+            return false;
+        }
+        if (versiculo_texto == "") {
+            alert("Preencha o texto do versículo");
+            return false;
+        }
+
+        $.ajax({
+            url: "painel/processos_leituras/code/destacar_versiculo.php",
+            method: "post",
+            data: {
+                id: id,
+                capitulo: capitulo,
+                versiculo: versiculo,
+                versiculo_texto: versiculo_texto,
+                desc_destacar: desc_destacar
             },
             success: function(data) {
                 alert(data);
