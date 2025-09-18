@@ -30,20 +30,38 @@ if (count($res) == 0) {
     $sql_livro = $pdo->query("SELECT nome_livro FROM livros WHERE id_l = '$id_l'");
     $res_livro = $sql_livro->fetchAll(PDO::FETCH_ASSOC);
     $nome_l = count($res_livro) > 0 ? $res_livro[0]['nome_livro'] : 'Livro não encontrado';
-
+    
     $sql_caps = $pdo->query("SELECT * FROM capitulos WHERE id_c = '$id_l'");
     $res_caps = $sql_caps->fetchAll(PDO::FETCH_ASSOC);
-    $caps = $res_caps[0]['quant_c'];
+    $total_caps = $res_caps[0]['quant_c'];
+
+    $sql_caps_lidos = $pdo->query("SELECT * FROM pl_inserircap WHERE id_pl = '$id_pl' AND id_l = '$id_l' AND IP_mem_ic = '$_SESSION[IP_mem]'");
+    $res_caps_lidos = $sql_caps_lidos->fetchAll(PDO::FETCH_ASSOC);
+    $caps_lidos = 0;
+    if (count($res_caps_lidos) > 0) {
+        for ($cont = 0; $cont < count($res_caps_lidos); $cont++) {
+            $caps_lidos += $res_caps_lidos[$cont]['quant_ic'] ?? 0;
+        }
+    }
 
     $data_ini = date('d/m/Y', strtotime($data_ini));
     $data_fim = $data_fim ? date('d/m/Y', strtotime($data_fim)) : '---';
 
-    echo "<h4 class='arvo-regular'>Processo de Leitura ID: $id_pl</h4>";
-    echo "<p><strong>Livro:</strong> $nome_l</p>";
-    echo "<p><strong>Título:</strong> $titulo_pl</p>";
-    echo "<p><strong>Descrição/Observações:</strong> $desc_pl</p>";
-    echo "<p><strong>Data de Início:</strong> $data_ini</p>";
-    echo "<p><strong>Data de Término:</strong> $data_fim</p>";
-    echo "<p><strong>Capítulos Restantes:</strong> $caps Capítulos</p>";
-    echo "<p><strong>Status:</strong> $status_pl</p>";
+    ?>
+    <div class="d-flex flex-wrap">
+        <div class="col-md-6">
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Livro:</strong> <?php echo $nome_l; ?></p>
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Título:</strong> <?php echo $titulo_pl; ?></p>
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Descrição/Observação:</strong> <?php echo $desc_pl; ?></p>
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Data Início:</strong> <?php echo $data_ini; ?></p>
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Data Fim:</strong> <?php echo $data_fim; ?></p>
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Status:</strong> <?php echo $status_pl; ?></p>
+        </div>
+        <div class="col-md-6">
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Total de Capítulos:</strong> <?php echo $total_caps; ?></p>
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Capítulos Lidos:</strong> <?php echo $caps_lidos; ?></p>
+            <p class="arvo-regular-italic"><strong class="arvo-regular">Capítulos Restantes:</strong> <?php echo $total_caps - $caps_lidos; ?></p>
+        </div>
+    </div>
+    <?php
 }

@@ -22,13 +22,13 @@ if (count($res) == 0) {
 <table class="table table-striped">
     <thead>
         <tr>
-                <th scope="col">Livro</th>
+            <th scope="col" width="130"></th>
+            <th scope="col">Livro</th>
             <th scope="col">Título</th>
             <th scope="col">Desc/Obser</th>
             <th scope="col" width="200">Inicio / Fim</th>
             <th scope="col" width="200">Cap Restantes</th>
             <th scope="col">Status</th>
-            <th scope="col" width="150"></th>
         </tr>
     </thead>
     <tbody>
@@ -80,21 +80,26 @@ if (count($res) == 0) {
 
                 ?>
                 <tr>
-                    <td><?php echo $nome_l; ?></td>
-                    <td><?php echo $titulo_pl; ?></td>
-                    <td><?php echo $desc_pl; ?></td>
-                    <td><?php echo $data_ini . ' / ' . $data_fim; ?></td>
-                    <td><?php echo ($total_caps - $caps_lidos) . " Capítulos"?></td>
-                    <td class="<?php echo $status_pl_bg; ?>"><?php echo $status_pl; ?></td>
                     <td>
-                        <a href="#" title="Excluir" class="text-dark f-20" data-bs-toggle="modal" data-bs-target="#ModalConfirmDel" onclick="document.getElementById('idDel_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-trash"></i></a>
-                        <a href="#" title="Finalizar Precesso" class="text-danger f-20" data-bs-toggle="modal" data-bs-target="<?php echo $modal_finalizar; ?>" onclick="document.getElementById('idFin_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-xmark"></i></a>
-                        <a href="#" title="Visualizar" class="text-primary f-20" data-bs-toggle="modal" data-bs-target="#ModalInfo" onclick="infoPL('<?php echo $id_pl; ?>')"><i class="fa-solid fa-eye"></i></a>
                         <?php 
                             if ($status_pl == 'Aberto') {
                                 echo '<a href="#" title="Inserir Capítulos" class="text-success f-20" data-bs-toggle="modal" data-bs-target="#ModalInserirCap" onclick="document.getElementById(\'idInsCap_PL\').value = \'' . $id_pl . '\'; document.getElementById(\'idLivro\').value = \'' . $id_l . '\'"><i class="fa-solid fa-plus"></i></a>';
                             }
                         ?>
+                        <a href="#" title="Finalizar Precesso" class="text-danger f-20" data-bs-toggle="modal" data-bs-target="<?php echo $modal_finalizar; ?>" onclick="document.getElementById('idFin_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-xmark"></i></a>
+                        <a href="#" title="Excluir" class="text-dark f-20" data-bs-toggle="modal" data-bs-target="#ModalConfirmDel" onclick="document.getElementById('idDel_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-trash"></i></a>
+                        <a href="#" title="Destacar Versículo" class="text-warning f-20" data-bs-toggle="modal" data-bs-target="#ModalDestacarVers" onclick="document.getElementById('idDestacarVers_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-highlighter"></i></a>
+                    </td>
+                    <td><?php echo $nome_l; ?></td>
+                    <td><?php echo $titulo_pl; ?></td>
+                    <td><?php echo $desc_pl; ?></td>
+                    <td><?php echo $data_ini . ' / ' . $data_fim; ?></td>
+                    <td><?php echo ($total_caps - $caps_lidos) . " Capítulos"?></td>
+                    <td class="<?php echo $status_pl_bg; ?>">
+                        <?php echo $status_pl; ?>
+                    </td>
+                    <td width="5">
+                        <a href="#" title="Visualizar" class="text-info f-20" data-bs-toggle="modal" data-bs-target="#ModalInfo" onclick="infoPL('<?php echo $id_pl; ?>')"><i class="fa-solid fa-eye"></i></a>
                     </td>
                 </tr>
                 <?php

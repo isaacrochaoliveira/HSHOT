@@ -19,9 +19,9 @@ require_once 'db/autenticator.php';
             </form>
         </div>
     </div>
-</div>
-<div class="meus_pl">
-
+    <div class="meus_pl">
+    
+    </div>
 </div>
 
 <div class="modal fade" id="ModalConfirmDel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -112,8 +112,9 @@ require_once 'db/autenticator.php';
                 <div class="info-content"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="text" id="idInfo_PL" hidden>
+                <a href="#" title="Detalhes de Cada Capítulo" class="f-20"><i class="fa-solid fa-book-bible"></i></a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
@@ -256,6 +257,10 @@ require_once 'db/autenticator.php';
 
         if (quant_cap == "" || quant_cap <= 0) {
             alert("Preencha a quantidade de capítulos");
+            return false;
+        }
+        if (quant_cap > 7) {
+            alert("A quantidade não permitida.");
             return false;
         }
         if (data_cap == "") {
