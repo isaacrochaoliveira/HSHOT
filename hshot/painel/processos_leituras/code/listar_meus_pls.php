@@ -22,8 +22,7 @@ if (count($res) == 0) {
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Livro</th>
+                <th scope="col">Livro</th>
             <th scope="col">Título</th>
             <th scope="col">Desc/Obser</th>
             <th scope="col" width="200">Inicio / Fim</th>
@@ -52,7 +51,16 @@ if (count($res) == 0) {
 
                 $sql_caps = $pdo->query("SELECT * FROM capitulos WHERE id_c = '$id_l'");
                 $res_caps = $sql_caps->fetchAll(PDO::FETCH_ASSOC);
-                $caps = $res_caps[0]['quant_c'];
+                $total_caps = $res_caps[0]['quant_c'];
+
+                $sql_caps_lidos = $pdo->query("SELECT * FROM pl_inserircap WHERE id_pl = '$id_pl' AND id_l = '$id_l' AND IP_mem_ic = '$_SESSION[IP_mem]'");
+                $res_caps_lidos = $sql_caps_lidos->fetchAll(PDO::FETCH_ASSOC);
+                $caps_lidos = 0;
+                if (count($res_caps_lidos) > 0) {
+                    for ($cont = 0;  $cont < count($res_caps_lidos); $cont++) {
+                        $caps_lidos += $res_caps_lidos[$cont]['quant_ic'] ?? 0;
+                    }
+                }
 
                 $data_ini = date('d/m/Y', strtotime($data_ini));
                 $data_fim = $data_fim ? date('d/m/Y', strtotime($data_fim)) : '---';
@@ -63,20 +71,30 @@ if (count($res) == 0) {
                 } else {
                     $status_pl_bg = 'bg-danger text-white';
                 }
+
+                if (($total_caps - $caps_lidos) > 0) {
+                    $modal_finalizar = '#ModalNaoFinalizar';
+                } else {
+                    $modal_finalizar = '#ModalFinalizar';
+                }
+
                 ?>
                 <tr>
-                    <th scope="row"><?php echo $id_pl; ?></th>
                     <td><?php echo $nome_l; ?></td>
                     <td><?php echo $titulo_pl; ?></td>
                     <td><?php echo $desc_pl; ?></td>
                     <td><?php echo $data_ini . ' / ' . $data_fim; ?></td>
-                    <td><?php echo $caps . " Capítulos"?></td>
+                    <td><?php echo ($total_caps - $caps_lidos) . " Capítulos"?></td>
                     <td class="<?php echo $status_pl_bg; ?>"><?php echo $status_pl; ?></td>
                     <td>
                         <a href="#" title="Excluir" class="text-dark f-20" data-bs-toggle="modal" data-bs-target="#ModalConfirmDel" onclick="document.getElementById('idDel_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-trash"></i></a>
-                        <a href="#" title="Finalizar Precesso" class="text-danger f-20" data-bs-toggle="modal" data-bs-target="#ModalFinalizar" onclick="document.getElementById('idFin_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-xmark"></i></a>
+                        <a href="#" title="Finalizar Precesso" class="text-danger f-20" data-bs-toggle="modal" data-bs-target="<?php echo $modal_finalizar; ?>" onclick="document.getElementById('idFin_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-xmark"></i></a>
                         <a href="#" title="Visualizar" class="text-primary f-20" data-bs-toggle="modal" data-bs-target="#ModalInfo" onclick="infoPL('<?php echo $id_pl; ?>')"><i class="fa-solid fa-eye"></i></a>
-                        <a href="#" title="Inserir Capítulos" class="text-success f-20" data-bs-toggle="modal" data-bs-target="#ModalInserirCap" onclick="document.getElementById('idInsCap_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-plus"></i></a>
+                        <?php 
+                            if ($status_pl == 'Aberto') {
+                                echo '<a href="#" title="Inserir Capítulos" class="text-success f-20" data-bs-toggle="modal" data-bs-target="#ModalInserirCap" onclick="document.getElementById(\'idInsCap_PL\').value = \'' . $id_pl . '\'; document.getElementById(\'idLivro\').value = \'' . $id_l . '\'"><i class="fa-solid fa-plus"></i></a>';
+                            }
+                        ?>
                     </td>
                 </tr>
                 <?php

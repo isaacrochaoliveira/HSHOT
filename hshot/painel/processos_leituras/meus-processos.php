@@ -43,6 +43,23 @@ require_once 'db/autenticator.php';
     </div>
 </div>
 
+<div class="modal fade" id="ModalNaoFinalizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Finalização de Processo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="arvo-regular">Detectamos que seu processo de leitura está em andamento. Capítulos ainda Restantes!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="ModalFinalizar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -97,6 +114,37 @@ require_once 'db/autenticator.php';
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalInserirCap" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Inserir Capítulos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="arvo-regular">Informe a quantidade de Capítulos e a Data à qual foram lidos</p>
+                <div class="form-group my-2">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" id="quant_cap" placeholder="Quantidade de Capítulos">
+                        <label for="quant_cap">Quantidade de Capítulos*</label>
+                    </div>
+                </div>
+                <div class="form-group my-2">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" id="data_cap" placeholder="Data dos Capítulos">
+                        <label for="data_cap">Data dos Capítulos*</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="text" id="idInsCap_PL" hidden>
+                <input type="text" id="idLivro" hidden>
+                <button type="button" class="btn btn-primary" id="btnInsCap_PL">Inserir</button>
             </div>
         </div>
     </div>
@@ -197,4 +245,37 @@ require_once 'db/autenticator.php';
             }
         });
     }
+</script>
+
+<script>
+    $('#btnInsCap_PL').click(function() {
+        var idLivro = $('#idLivro').val();
+        var id = $('#idInsCap_PL').val();
+        var quant_cap = $('#quant_cap').val();
+        var data_cap = $('#data_cap').val();
+
+        if (quant_cap == "" || quant_cap <= 0) {
+            alert("Preencha a quantidade de capítulos");
+            return false;
+        }
+        if (data_cap == "") {
+            alert("Preencha a data dos capítulos");
+            return false;
+        }
+
+        $.ajax({
+            url: "painel/processos_leituras/code/inserir_cap.php",
+            method: "post",
+            data: {
+                idLivro: idLivro,
+                id: id,
+                quant_cap: quant_cap,
+                data_cap: data_cap
+            },
+            success: function(data) {
+                alert(data);
+                location.reload();
+            }
+        });
+    });
 </script>
