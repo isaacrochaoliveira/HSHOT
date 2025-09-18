@@ -142,3 +142,11 @@ require_once 'db/autenticator.php';
         })
     })
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('#vO').click(function() {
+            window.location.href = 'home.php?pag=processos';
+        });
+    })
+</script>

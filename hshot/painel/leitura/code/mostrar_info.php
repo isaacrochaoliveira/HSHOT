@@ -29,7 +29,7 @@ if (!(isset($_GET['livro']))) {
         <p class="arvo-regular f-20">Gostaria de abrir um organização Biblica nesse Livro?</p>
         <div>
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#abrirProcesso">Abrir Organização</button>
-            <button class="btn btn-warning">Ver Organização</button>
+            <button class="btn btn-warning" id="vO">Ver Organização</button>
         </div>
     <?php
     }
