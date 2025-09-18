@@ -88,7 +88,7 @@ if (count($res) == 0) {
                         ?>
                         <a href="#" title="Finalizar Precesso" class="text-danger f-20" data-bs-toggle="modal" data-bs-target="<?php echo $modal_finalizar; ?>" onclick="document.getElementById('idFin_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-xmark"></i></a>
                         <a href="#" title="Excluir" class="text-dark f-20" data-bs-toggle="modal" data-bs-target="#ModalConfirmDel" onclick="document.getElementById('idDel_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-trash"></i></a>
-                        <a href="#" title="Destacar Versículo" class="text-warning f-20" data-bs-toggle="modal" data-bs-target="#ModalDestacarVers" onclick="document.getElementById('idDestacarVers_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-highlighter"></i></a>
+                        <a href="#" title="Destacar Versículo" class="text-warning f-20" data-bs-toggle="modal" data-bs-target="#ModalDestacarVers" onclick="document.getElementById('idLivro').value = '<?php echo $id_pl; ?>'; document.getElementById('livroReadOnlyDesc').value = '<?php echo $nome_l; ?>'"><i class="fa-solid fa-highlighter"></i></a>
                     </td>
                     <td><?php echo $nome_l; ?></td>
                     <td><?php echo $titulo_pl; ?></td>

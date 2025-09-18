@@ -20,7 +20,7 @@ require_once 'db/autenticator.php';
         </div>
     </div>
     <div class="meus_pl">
-    
+
     </div>
 </div>
 
@@ -150,6 +150,52 @@ require_once 'db/autenticator.php';
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="ModalDestacarVers" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Destacar Versículo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="arvo-regular">Informe o versículo que deseja destacar</p>
+                <div class="d-flex flex-wrap">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="livroReadOnlyDesc" placeholder="Salmos" readonly>
+                                <label for="#">Livro</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mx-2">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="capitulo_destacar" placeholder="Capítulo" max="150" min="1">
+                                <label for="capitulo_destacar">Capítulo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="versiculo_destacar" placeholder="MT *:20" min="1">
+                                <label for="versiculo_destacar">Versículo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <input type="text" id="idLivro" hidden>
+                <button type="button" class="btn btn-primary" id="btnInsCap_PL">Inserir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
