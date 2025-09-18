@@ -113,7 +113,7 @@ require_once 'db/autenticator.php';
             </div>
             <div class="modal-footer">
                 <input type="text" id="idInfo_PL" hidden>
-                <a href="#" title="Visualizar Versículo Destacado" class="f-26 text-warning"><i class="fa-solid fa-book-open"></i></a>
+                <a href="#" title="Visualizar Versículo Destacado" class="f-26 text-warning" onclick="versiculos_destacados()"><i class="fa-solid fa-book-open"></i></a>
                 <a href="#" title="Detalhes de Cada Capítulo" class="f-26"><i class="fa-solid fa-book-bible"></i></a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
@@ -208,6 +208,27 @@ require_once 'db/autenticator.php';
     </div>
 </div>
 
+<div class="modal fade" id="ModalVersDesc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Versículos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex flex-wrap">
+                    <div class="versiculos_vd">
+                        <!-- Os versículos destacados serão adicionados aqui dinamicamente -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="text" id="id_PL" hidden>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="abrirModal()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
@@ -300,6 +321,7 @@ require_once 'db/autenticator.php';
                 id: id
             },
             success: function(data) {
+                $('#idInfo_PL').val(id);
                 $('.info-content').html(data);
             }
         });
@@ -380,4 +402,28 @@ require_once 'db/autenticator.php';
             }
         });
     });
+</script>
+
+<script>
+    function versiculos_destacados() {
+        $.ajax({
+            url: "painel/processos_leituras/code/listar_versiculos_destacados.php",
+            method: "post",
+            data: {
+                id: $('#idInfo_PL').val()
+            },
+            success: function(data) {
+                $('#ModalInfo').modal('hide');
+                $('.versiculos_vd').html(data);
+                $('#ModalVersDesc').modal('show');
+            }
+        });
+    }
+</script>
+
+<script>
+    function abrirModal() {
+        $('#ModalVersDesc').modal('hide');
+        $('#ModalInfo').modal('show');
+    }
 </script>
