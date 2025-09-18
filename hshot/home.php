@@ -50,7 +50,9 @@ if(isset($_GET['pag'])){
         <?php 
             if($pag == "leitura"){
                 require_once 'painel/leitura/leitura.php';
-            }else{
+            }else if($pag == "processos"){
+                require_once 'painel/processos_leituras/meus-processos.php';
+            } else {
                 require_once 'painel/home.php';
             }
         ?>
