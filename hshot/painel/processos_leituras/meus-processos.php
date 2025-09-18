@@ -82,6 +82,26 @@ require_once 'db/autenticator.php';
     </div>
 </div>
 
+<div class="modal fade" id="ModalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Informações Processo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="arvo-regular-italic">Algumas informações sobre o seu Processo de Leitura</p>
+                <hr>
+                <div class="info-content"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -133,4 +153,48 @@ require_once 'db/autenticator.php';
             }
         });
     });
+</script>
+
+<script>
+    $('#btnFin_PL').click(function() {
+        var id = $('#idFin_PL').val();
+        var data_fim = $('#data_fim_pl').val();
+        var obs_fin = $('#obs_fin_pl').val();
+        var status_pl = $('#status_pl').val();
+
+        if (data_fim == "") {
+            alert("Preencha a data de término");
+            return false;
+        }
+
+        $.ajax({
+            url: "painel/processos_leituras/code/finalizar_pl.php",
+            method: "post",
+            data: {
+                id: id,
+                data_fim: data_fim,
+                obs_fin: obs_fin,
+                status_pl: status_pl
+            },
+            success: function(data) {
+                alert(data);
+                location.reload();
+            }
+        });
+    });
+</script>
+
+<script>
+    function infoPL(id) {
+        $.ajax({
+            url: "painel/processos_leituras/code/mostrar_info.php",
+            method: "post",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                $('.info-content').html(data);
+            }
+        });
+    }
 </script>

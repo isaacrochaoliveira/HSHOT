@@ -25,11 +25,11 @@ if (count($res) == 0) {
             <th scope="col">ID</th>
             <th scope="col">Livro</th>
             <th scope="col">Título</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">Data Início</th>
-            <th scope="col">Data Fim</th>
+            <th scope="col">Desc/Obser</th>
+            <th scope="col" width="200">Inicio / Fim</th>
+            <th scope="col" width="200">Cap Restantes</th>
             <th scope="col">Status</th>
-            <th scope="col">Ações</th>
+            <th scope="col" width="150"></th>
         </tr>
     </thead>
     <tbody>
@@ -50,6 +50,10 @@ if (count($res) == 0) {
                 $res_livro = $sql_livro->fetchAll(PDO::FETCH_ASSOC);
                 $nome_l = count($res_livro) > 0 ? $res_livro[0]['nome_livro'] : 'Livro não encontrado';
 
+                $sql_caps = $pdo->query("SELECT * FROM capitulos WHERE id_c = '$id_l'");
+                $res_caps = $sql_caps->fetchAll(PDO::FETCH_ASSOC);
+                $caps = $res_caps[0]['quant_c'];
+
                 $data_ini = date('d/m/Y', strtotime($data_ini));
                 $data_fim = $data_fim ? date('d/m/Y', strtotime($data_fim)) : '---';
                 $desc_pl = (strlen($desc_pl) > 10) ? substr($desc_pl, 0, 10) . '...' : $desc_pl;
@@ -57,7 +61,7 @@ if (count($res) == 0) {
                 if ($status_pl == 'Aberto') {
                     $status_pl_bg = 'bg-success text-white';
                 } else {
-                    $status_pl_bg = 'bg-warning text-info';
+                    $status_pl_bg = 'bg-danger text-white';
                 }
                 ?>
                 <tr>
@@ -65,13 +69,14 @@ if (count($res) == 0) {
                     <td><?php echo $nome_l; ?></td>
                     <td><?php echo $titulo_pl; ?></td>
                     <td><?php echo $desc_pl; ?></td>
-                    <td><?php echo $data_ini; ?></td>
-                    <td><?php echo $data_fim; ?></td>
+                    <td><?php echo $data_ini . ' / ' . $data_fim; ?></td>
+                    <td><?php echo $caps . " Capítulos"?></td>
                     <td class="<?php echo $status_pl_bg; ?>"><?php echo $status_pl; ?></td>
                     <td>
                         <a href="#" title="Excluir" class="text-dark f-20" data-bs-toggle="modal" data-bs-target="#ModalConfirmDel" onclick="document.getElementById('idDel_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-trash"></i></a>
                         <a href="#" title="Finalizar Precesso" class="text-danger f-20" data-bs-toggle="modal" data-bs-target="#ModalFinalizar" onclick="document.getElementById('idFin_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-xmark"></i></a>
-                        <a href="#" title="Editar" class="text-info f-20"><i class="fa-solid fa-file-pen"></i></a>
+                        <a href="#" title="Visualizar" class="text-primary f-20" data-bs-toggle="modal" data-bs-target="#ModalInfo" onclick="infoPL('<?php echo $id_pl; ?>')"><i class="fa-solid fa-eye"></i></a>
+                        <a href="#" title="Inserir Capítulos" class="text-success f-20" data-bs-toggle="modal" data-bs-target="#ModalInserirCap" onclick="document.getElementById('idInsCap_PL').value = '<?php echo $id_pl; ?>'"><i class="fa-solid fa-plus"></i></a>
                     </td>
                 </tr>
                 <?php
