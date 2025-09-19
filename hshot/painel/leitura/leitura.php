@@ -4,10 +4,10 @@ require_once 'db/connect.php';
 require_once 'db/autenticator.php';
 @session_start();
 ?>
+    <button class="btn btn-warning my-2" id="vO">Ver Processsos de Leitura</button>
 <div class="d-flex flex-wrap">
     <div class="w-75">
         <?php
-        if (!(isset($_GET['livro']))) {
         ?>
             <div class="mst_li">
                 <div class="d-flex flex-wrap gap-2">
@@ -15,23 +15,11 @@ require_once 'db/autenticator.php';
                 </div>
             </div>
     </div>
-<?php
-        } else {
-?>
-    <div class="mst_li">
-        <div class="d-flex flex-wrap gap-2">
-            <?php require_once 'painel/leitura/code/listar_capitulos.php'; ?>
-        </div>
+    <div class="w-25">
+        <?php
+        require_once 'painel/leitura/code/mostrar_info.php';
+        ?>
     </div>
-<?php
-        }
-?>
-</div>
-<div class="w-25">
-    <?php
-    require_once 'painel/leitura/code/mostrar_info.php';
-    ?>
-</div>
 </div>
 
 
@@ -97,7 +85,7 @@ require_once 'db/autenticator.php';
     $(document).ready(function() {
         $('.spinner-border').hide();
     });
-    $(document).ready(function () {
+    $(document).ready(function() {
         $(".btn-ap").click(function() {
             var id_l = <?php echo isset($_GET['livro']) ? $_GET['livro'] : 'null'; ?>;
             var nome_org = $("#titulo_pl").val();
@@ -118,7 +106,7 @@ require_once 'db/autenticator.php';
                 beforeSend: function() {
                     $('.spinner-border').show();
                     setInterval(function() {
-                         $.ajax({
+                        $.ajax({
                             url: "painel/leitura/code/abrir_processo.php",
                             method: "post",
                             data: {
@@ -128,7 +116,7 @@ require_once 'db/autenticator.php';
                                 data_ini: data_ini,
                                 status_pl: status_pl
                             },
-                            success: function (data) {
+                            success: function(data) {
                                 alert(data)
                                 $('#abrirProcesso').modal('hide');
                                 $('.spinner-border').hide();
@@ -136,7 +124,7 @@ require_once 'db/autenticator.php';
                                 location.href = "home.php?pag=processos";
                             }
                         });
-                    }, 5000); 
+                    }, 5000);
                 }
             });
         })

@@ -16,7 +16,7 @@ for ($i = 1; $i < $total + 1; $i++) {
         $active = "#0098B3";
     }
 ?>
-    <a href="home.php?pag=leitura&livro=<?php echo $liv; ?>&cap=<?php echo $i; ?>" class="cap_a">
+    <a href="home.php?pag=leitura&livro=<?php echo $liv; ?>" class="cap_a">
         <div class="cap" style="background-color: <?php echo isset($active) && $cap == $i ? $active : ''; ?>;">
             <p><?php echo $i ?></p>
         </div>

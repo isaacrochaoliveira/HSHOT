@@ -6,9 +6,6 @@ if (!(isset($_GET['livro']))) {
     echo "Nenhum livro selecionado";
 } else {
     ?>
-    <p>
-        <a href="javascript:history.go(-1)" class="btn btn-secondary">Voltar</a>
-    </p>
     <?php
     $livro = $_GET['livro'];
 
@@ -29,7 +26,6 @@ if (!(isset($_GET['livro']))) {
         <p class="arvo-regular f-20">Gostaria de abrir um organização Biblica nesse Livro?</p>
         <div>
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#abrirProcesso">Abrir Organização</button>
-            <button class="btn btn-warning" id="vO">Ver Organização</button>
         </div>
     <?php
     }
