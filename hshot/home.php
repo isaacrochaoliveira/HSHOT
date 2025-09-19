@@ -36,7 +36,7 @@ if(isset($_GET['pag'])){
                 <ul class="nav me-auto text-white">
                     <li class="nav-item"><a href="home.php" class="nav-link text-white px-2 active" aria-current="page">Painel</a></li>
                     <li class="nav-item"><a href="home.php?pag=leitura" class="nav-link text-white px-2">Leitura</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2">Pricing</a></li>
+                    <li class="nav-item"><a href="home.php?pag=propositos" class="nav-link text-white px-2">Propósitos</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">FAQs</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil</a></li>
                 </ul>
@@ -53,6 +53,8 @@ if(isset($_GET['pag'])){
                 require_once 'painel/leitura/leitura.php';
             }else if($pag == "processos"){
                 require_once 'painel/processos_leituras/meus-processos.php';
+            } else if($pag == "propositos"){
+                require_once('painel/propositos/propositos.php');
             } else {
                 require_once 'painel/home.php';
             }
