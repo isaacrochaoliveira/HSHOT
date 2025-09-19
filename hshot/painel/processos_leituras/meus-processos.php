@@ -114,7 +114,7 @@ require_once 'db/autenticator.php';
             <div class="modal-footer">
                 <input type="text" id="idInfo_PL" hidden>
                 <a href="#" title="Visualizar Versículo Destacado" class="f-26 text-warning" onclick="versiculos_destacados()"><i class="fa-solid fa-book-open"></i></a>
-                <a href="#" title="Detalhes de Cada Capítulo" class="f-26"><i class="fa-solid fa-book-bible"></i></a>
+                <a href="#" title="Detalhes de Cada Capítulo" class="f-26 text-success" onclick="caps_lidosDetails()"><i class="fa-solid fa-book-bible"></i></a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
@@ -219,6 +219,30 @@ require_once 'db/autenticator.php';
                 <div class="d-flex flex-wrap">
                     <div class="versiculos_vd">
                         <!-- Os versículos destacados serão adicionados aqui dinamicamente -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="text" id="id_PL" hidden>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="abrirModal()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCapsDetalhados" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Capítulos Lidos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex">
+                    <div class="col">
+                        <div class="caps_detalhados">
+                            <!-- Os versículos destacados serão adicionados aqui dinamicamente -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -425,5 +449,22 @@ require_once 'db/autenticator.php';
     function abrirModal() {
         $('#ModalVersDesc').modal('hide');
         $('#ModalInfo').modal('show');
+    }
+</script>
+
+<script>
+    function caps_lidosDetails() {
+        $.ajax({
+            url: 'painel/processos_leituras/code/caps_detalhados.php',
+            method: 'post',
+            data: {
+                id: $('#idInfo_PL').val()
+            },
+            success: function(data) {
+                $('#ModalInfo').modal('hide');
+                $('.caps_detalhados').html(data);
+                $('#ModalCapsDetalhados').modal('show');
+            }
+        });
     }
 </script>
