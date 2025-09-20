@@ -2,6 +2,8 @@
 
 @session_start();
 
+define('URL', 'http://localhost/HSHOT/');
+
 $pegar_ip = $_SERVER["REMOTE_ADDR"];
 
 $pegar_ip = filter_var($pegar_ip, FILTER_VALIDATE_IP);

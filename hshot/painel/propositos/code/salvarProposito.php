@@ -21,5 +21,5 @@ if (count($res) > 0) {
     exit();
 }
 
-$sql = $pdo->query("INSERT INTO meus_propositos (nome_mp, desc_mp, dataCriacao_mp, dataAcabar_mp, baseBiblica_mp, IP_mp) VALUES ('$nome_mp', '$desc_mp', '$dataCriacao_mp', '$dataAcabar_mp', '$_SESSION[IP_mem]')");
+$sql = $pdo->query("INSERT INTO meus_propositos (nome_mp, desc_mp, dataCriacao_mp, dataAcabar_mp, baseBiblica_mp, IP_mp) VALUES ('$nome_mp', '$desc_mp', '$dataCriacao_mp', '$dataAcabar_mp', '$baseBiblica_mp', '$_SESSION[IP_mem]')");
 echo "Sucesso!";

@@ -113,6 +113,28 @@ if (!($_SESSION['IP_mem'])) {
     </div>
 </div>
 
+<div class="modal fade" id="ModalQuestion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Ainda Você Pode:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="f-20 arvo-regular">Essa é uma página destianada a:</p>
+                <ul>
+                    <li>
+                        Conectar o seu propósito com o seu processo de leitura
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- <script>
     $(document).ready(function() {
@@ -144,6 +166,7 @@ if (!($_SESSION['IP_mem'])) {
             $.ajax({
                 beforeSend: function() {
                     $('.buttonSpinner').removeClass('d-none');
+                    $('#slvPro').addClass('d-none');
                     setInterval(function() {
                         $.ajax({
                             url: 'painel/propositos/code/salvarProposito.php',
@@ -156,7 +179,11 @@ if (!($_SESSION['IP_mem'])) {
                                 dataAcabar_mp: dataAcabar_mp
                             },
                             success: function(data) {
-                                window.reload();
+                                if (data.trim() == 'Sucesso') {
+                                    location.reload();
+                                } else {
+                                    alert(data)
+                                }
                             }
                         })
                     }, 5000)
@@ -171,9 +198,6 @@ if (!($_SESSION['IP_mem'])) {
         $.ajax({
             url: 'painel/propositos/code/lstPropositos.php',
             method: 'post',
-            data: {
-                IP: <?=$_SESSION['IP_mem']?>
-            },
             success: function(data) {
                 $('.meus_propositos').html(data);
             }
