@@ -73,7 +73,7 @@ if (!($_SESSION['IP_mem'])) {
                             </div>
                             <div class="form-group my-2">
                                 <div class="form-floating">
-                                    <textarea id="desc_mp" cols="50" rows="50" class="form-control"></textarea>
+                                    <textarea id="desc_mp" cols="50" rows="100" class="form-control"></textarea>
                                     <label for="desc_mp">Dê uma descrição à seu propósito</label>
                                 </div>
                             </div>
@@ -102,8 +102,12 @@ if (!($_SESSION['IP_mem'])) {
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="slvPro">Salvar Propósito</button>
+                <button class="btn btn-primary buttonSpinner d-none" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                    <span role="status">Loading...</span>
+                </button>
             </div>
         </div>
     </div>
@@ -120,6 +124,59 @@ if (!($_SESSION['IP_mem'])) {
     $(document).ready(function() {
         $('.AddPr').click(function() {
             $('#ModalAddPr').modal('show');
+        })
+    })
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#slvPro").click(function() {
+            var nome_mp = $('#nome_mp').val();
+            var desc_mp = $('#desc_mp').val();
+            var baseBiblica_mp = $('#baseBiblica_mp').val();
+            var dataCriacao_mp = $('#dataCriacao_mp').val();
+            var dataAcabar_mp =  $('#dataAcabar_mp').val();
+
+            if (nome_mp == "") {
+                alert('Campo Nome Obrigatório');
+            }
+
+            $.ajax({
+                beforeSend: function() {
+                    $('.buttonSpinner').removeClass('d-none');
+                    setInterval(function() {
+                        $.ajax({
+                            url: 'painel/propositos/code/salvarProposito.php',
+                            method: 'post',
+                            data: {
+                                nome_mp: nome_mp,
+                                desc_mp: desc_mp,
+                                baseBiblica_mp: baseBiblica_mp,
+                                dataCriacao_mp: dataCriacao_mp,
+                                dataAcabar_mp: dataAcabar_mp
+                            },
+                            success: function(data) {
+                                window.reload();
+                            }
+                        })
+                    }, 5000)
+                }
+            })
+        })
+    })
+</script>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'painel/propositos/code/lstPropositos.php',
+            method: 'post',
+            data: {
+                IP: <?=$_SESSION['IP_mem']?>
+            },
+            success: function(data) {
+                $('.meus_propositos').html(data);
+            }
         })
     })
 </script>
