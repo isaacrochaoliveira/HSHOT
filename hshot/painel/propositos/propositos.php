@@ -12,7 +12,7 @@ if (!($_SESSION['IP_mem'])) {
     <p class="arvo-regular">Se Comprometa com seu Pai, e Ele se compromete com você</p>
     <div class="d-flex flex-wrap gap-3">
         <div class="mx-auto">
-            <p class="btn btn-primary arvo-regular">Adcionar <i class="fa-solid fa-plus"></i></p>
+            <p class="btn btn-primary arvo-regular AddPr">Adcionar <i class="fa-solid fa-plus"></i></p>
         </div>
     </div>
 </div>
@@ -54,15 +54,52 @@ if (!($_SESSION['IP_mem'])) {
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="ModalAddPr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Criar Propósito</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                <form action="#" method="post">
+                    <div class="d-flex flex-wrap">
+                        <div class="col-md-7 mx-1">
+                            <div class="form-group">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="nome_mp" placeholder="Coloque um nome">
+                                    <label for="nome_mp">Nome(*)</label>
+                                </div>
+                            </div>
+                            <div class="form-group my-2">
+                                <div class="form-floating">
+                                    <textarea id="desc_mp" cols="50" rows="50" class="form-control"></textarea>
+                                    <label for="desc_mp">Dê uma descrição à seu propósito</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mx-1">
+                            <div class="form-group">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="baseBiblica_mp" placeholder="Base Biblica">
+                                    <label for="baseBiblica_mp">Base Biblica (EX: Gênesis 1:1)</label>
+                                </div>
+                            </div>
+                            <div class="form-group my-2">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="dataCriacao_mp" placeholder="*****">
+                                    <label for="dataCriacao_mp">Data de Criação</label>
+                                </div>
+                            </div>
+                            <div class="form-group my-2">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="dataAcabar_mp" placeholder="*****">
+                                    <label for="dataAcabar_mp">Data para Acabar</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -78,3 +115,11 @@ if (!($_SESSION['IP_mem'])) {
         $("#ModalExplic").modal('show');
     })
 </script> -->
+
+<script>
+    $(document).ready(function() {
+        $('.AddPr').click(function() {
+            $('#ModalAddPr').modal('show');
+        })
+    })
+</script>
