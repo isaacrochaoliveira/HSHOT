@@ -17,7 +17,7 @@ if (count($res) == 0) {
     exit();
 } else {
 ?>
-    <div class="d-flex flex-wrap gap-2">
+    <div class="d-flex flex-wrap">
         <?php
         for ($i = 0; $i < count($res); $i++) {
             $nome_mp = $res[$i]['nome_mp'];
@@ -25,6 +25,7 @@ if (count($res) == 0) {
             $baseBiblica_mp = $res[$i]['baseBiblica_mp'];
             $dataCriacao_mp = $res[$i]['dataCriacao_mp'];
             $dataAcabar_mp = $res[$i]['dataAcabar_mp'];
+            $id_pl = $res[$i]['id_pl_mp'];
 
             $dataCriacao_mp = date('d/m/Y', strtotime($dataCriacao_mp));
             $dataAcabar_mp = date('d/m/Y', strtotime($dataAcabar_mp));
@@ -35,26 +36,64 @@ if (count($res) == 0) {
                 $status = 'bg-success text-success';
             }
         ?>
-            <div class="card" style="width: 26rem;">
-                <div class="<?= $status ?>">
-                    Olá
-                </div>
-                <img src="<?= URL . 'imagens/arvore-com-a-presenca.jpg' ?>" class="" alt="Arvore pegando fogo com a presençade Deus">
-                <div class="card-body">
-                    <ul class="list-group list-group-flush f-14">
-                        <li class="list-group-item">Criado no dia <?php echo $dataCriacao_mp ?> com prazo até <mark style="background-color: yellow;"><strong><?php echo $dataAcabar_mp ?></strong></mark></li>
-                    </ul>
-                    <h5 class="card-title arvo-regular-italic f-36"><?= $nome_mp ?></h5>
-                    <span class="anton-regular f-14"><?php echo $baseBiblica_mp ?></span>
-                    <div class="d-flex flex-wrap">
-                        <div class="col-md-11">
-                            <p class="card-text arvo-regular f-16"><?php echo $desc_mp ?></p>
-                        </div>
-                        <div class="col-md-1">
-                            <a href="#" class="bg-primary text-white rounded p-2" data-bs-toggle="modal" data-bs-target="#ModalQuestion"><i class="fa-solid fa-question"></i></a href="#">
+            <div class="w-25 my-2">
+                <div class="card" style="width: 26rem;">
+                    <div class="<?= $status ?>">
+                        Olá
+                    </div>
+                    <img src="<?= URL . 'imagens/arvore-com-a-presenca.jpg' ?>" class="" alt="Arvore pegando fogo com a presençade Deus">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush f-14">
+                            <li class="list-group-item">Criado no dia <?php echo $dataCriacao_mp ?> com prazo até <mark style="background-color: yellow;"><strong><?php echo $dataAcabar_mp ?></strong></mark></li>
+                        </ul>
+                        <h5 class="card-title arvo-regular-italic f-36"><?= $nome_mp ?></h5>
+                        <span class="anton-regular f-14"><?php echo $baseBiblica_mp ?></span>
+                        <div class="d-flex flex-wrap">
+                            <div class="col-md-11">
+                                <p class="card-text arvo-regular f-16"><?php echo $desc_mp ?></p>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="#" class="bg-primary text-white rounded p-2" data-bs-toggle="modal" data-bs-target="#ModalQuestion"><i class="fa-solid fa-question"></i></a href="#">
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="w-75 my-2">
+                <?php
+                $sql_pl = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id_pl'");
+                $res_pl = $sql_pl->fetchAll(PDO::FETCH_ASSOC);
+                if (count($res_pl) == 0) {
+                ?>
+                    <div class="alert alert-primary" role="alert">
+                        Este propósito não está vinculado com nenhum processo de leitura
+                    </div>
+                <?php
+                } else {
+                ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Livro</th>
+                                <th scope="col">Título</th>
+                                <th scope="col">Desc/Obser</th>
+                                <th scope="col" width="200">Inicio / Fim</th>
+                                <th scope="col" width="200">Cap Restantes</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <?php
+                }
+                ?>
             </div>
         <?php
         }

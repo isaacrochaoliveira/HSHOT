@@ -114,7 +114,7 @@ if (!($_SESSION['IP_mem'])) {
 </div>
 
 <div class="modal fade" id="ModalQuestion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Ainda Você Pode:</h1>
@@ -124,9 +124,28 @@ if (!($_SESSION['IP_mem'])) {
                 <p class="f-20 arvo-regular">Essa é uma página destianada a:</p>
                 <ul>
                     <li>
-                        Conectar o seu propósito com o seu processo de leitura
+                        Conectar o seu propósito com o seu processo de leitura <a href="" data-bs-toggle="modal" data-bs-target="#ModalConectPL" onclick="pesquisarPL()">clicando aqui</a>
                     </li>
                 </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalConectPL" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Escolha o seu processo:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="meus_pl">
+
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -157,7 +176,7 @@ if (!($_SESSION['IP_mem'])) {
             var desc_mp = $('#desc_mp').val();
             var baseBiblica_mp = $('#baseBiblica_mp').val();
             var dataCriacao_mp = $('#dataCriacao_mp').val();
-            var dataAcabar_mp =  $('#dataAcabar_mp').val();
+            var dataAcabar_mp = $('#dataAcabar_mp').val();
 
             if (nome_mp == "") {
                 alert('Campo Nome Obrigatório');
@@ -203,4 +222,25 @@ if (!($_SESSION['IP_mem'])) {
             }
         })
     })
+</script>
+
+<script>
+    function pesquisarPL() {
+        $.ajax({
+            url: "painel/propositos/code/listar_meus_pls.php",
+            method: "post",
+            data: {
+                pesq: ""
+            },
+            success: function(data) {
+                $('.meus_pl').html(data);
+            }
+        });
+    }
+</script>
+
+<script>
+    function ConnectPL(id_pl) {
+        alert('oi');
+    }
 </script>
