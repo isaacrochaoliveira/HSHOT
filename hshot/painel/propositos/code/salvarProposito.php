@@ -16,7 +16,7 @@ $dataAcabar_mp = $_POST['dataAcabar_mp'];
 
 $sql = $pdo->query("SELECT * FROM meus_propositos WHERE nome_mp = '$nome_mp' AND IP_mp = '$_SESSION[IP_mem]'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
-if (count($res) == 0) {
+if (count($res) > 0) {
     echo "Um Próposito com esse nome já criado!";
     exit();
 }
