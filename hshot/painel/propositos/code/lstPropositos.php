@@ -20,6 +20,7 @@ if (count($res) == 0) {
     <div class="d-flex flex-wrap">
         <?php
         for ($i = 0; $i < count($res); $i++) {
+            $id_mp = $res[$i]['id_mp'];
             $nome_mp = $res[$i]['nome_mp'];
             $desc_mp = $res[$i]['desc_mp'];
             $baseBiblica_mp = $res[$i]['baseBiblica_mp'];
@@ -53,7 +54,7 @@ if (count($res) == 0) {
                                 <p class="card-text arvo-regular f-16"><?php echo $desc_mp ?></p>
                             </div>
                             <div class="col-md-1">
-                                <a href="#" class="bg-primary text-white rounded p-2" data-bs-toggle="modal" data-bs-target="#ModalQuestion"><i class="fa-solid fa-question"></i></a href="#">
+                                <a href="#" class="bg-primary text-white rounded p-2" data-bs-toggle="modal" data-bs-target="#ModalQuestion" onclick="document.getElementById('id_pl_mp').value = '<?php echo $id_mp ?>'"><i class="fa-solid fa-question"></i></a href="#">
                             </div>
                         </div>
                     </div>
@@ -83,12 +84,35 @@ if (count($res) == 0) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
+                            <?php
+                            for ($i = 0; $i < count($res_pl); $i++) {
+                                $id_pl = $res_pl[$i]['id_pl'];
+                                $id_l = $res_pl[$i]['id_l'];
+                                $titulo_pl = $res_pl[$i]['titulo_pl'];
+                                $desc_pl = $res_pl[$i]['desc_pl'];
+                                $data_ini = $res_pl[$i]['data_ini_pl'];
+                                $data_fim = $res_pl[$i]['data_fim_pl'];
+                                $status_pl = $res_pl[$i]['status_pl'];
+
+                                // Buscar o nome do livro com base no id_l
+                                $sql_livro = $pdo->query("SELECT nome_livro FROM livros WHERE id_l = '$id_l'");
+                                $res_livro = $sql_livro->fetchAll(PDO::FETCH_ASSOC);
+                                $nome_l = count($res_livro) > 0 ? $res_livro[0]['nome_livro'] : 'Livro não encontrado';
+
+                                $sql_caps = $pdo->query("SELECT * FROM capitulos WHERE id_c = '$id_l'");
+                                $res_caps = $sql_caps->fetchAll(PDO::FETCH_ASSOC);
+                                $total_caps = $res_caps[0]['quant_c'];
+                            ?>
+                                <tr>
+                                    <td><?php echo $nome_l; ?></td>
+                                    <td><?php echo $titulo_pl; ?></td>
+                                    <td><?php echo $desc_pl; ?></td>
+                                    <td><?php echo $data_ini . ' / ' . $data_fim; ?></td>
+                                    <td><?php echo $total_caps ?></td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 <?php

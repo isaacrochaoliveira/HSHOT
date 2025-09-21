@@ -129,6 +129,7 @@ if (!($_SESSION['IP_mem'])) {
                 </ul>
             </div>
             <div class="modal-footer">
+                <input type="text" id="id_pl_mp" hidden>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
@@ -241,6 +242,29 @@ if (!($_SESSION['IP_mem'])) {
 
 <script>
     function ConnectPL(id_pl) {
-        alert('oi');
+        var id_mp = $('#id_pl_mp').val();
+        $.ajax({
+            beforeSend: function() {
+                $(".spinner_connect").removeClass('d-none');
+                $('.connect_left').addClass('d-none');
+                setInterval(function() {
+                    $.ajax({
+                        url: 'painel/propositos/code/connect_pl_mp.php',
+                        method: 'post',
+                        data: {
+                            id_pl: id_pl,
+                            id_mp: id_mp
+                        },
+                        success: function(msg) {
+                            if (msg.trim() == 'Sucesso') {
+                                location.reload();
+                            } else {
+                                alert(msg);
+                            }
+                        }
+                    })  
+                }, 5000)
+            }
+        })
     }
 </script>

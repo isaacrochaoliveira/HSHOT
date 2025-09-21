@@ -13,20 +13,20 @@ if (count($res) == 0) {
     echo "<tr><td colspan='7'>Nenhum processo encontrado.</td></tr>";
 } else {
 
-    ?>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Livro</th>
-            <th scope="col">Título</th>
-            <th scope="col">Desc/Obser</th>
-            <th scope="col" width="200">Inicio / Fim</th>
-            <th scope="col" width="200">Cap Restantes</th>
-            <th scope="col">Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php 
+?>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Livro</th>
+                <th scope="col">Título</th>
+                <th scope="col">Desc/Obser</th>
+                <th scope="col" width="200">Inicio / Fim</th>
+                <th scope="col" width="200">Cap Restantes</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
             for ($i = 0; $i < count($res); $i++) {
                 foreach ($res[$i] as $key => $value) {
                 }
@@ -51,7 +51,7 @@ if (count($res) == 0) {
                 $res_caps_lidos = $sql_caps_lidos->fetchAll(PDO::FETCH_ASSOC);
                 $caps_lidos = 0;
                 if (count($res_caps_lidos) > 0) {
-                    for ($cont = 0;  $cont < count($res_caps_lidos); $cont++) {
+                    for ($cont = 0; $cont < count($res_caps_lidos); $cont++) {
                         $caps_lidos += $res_caps_lidos[$cont]['quant_ic'] ?? 0;
                     }
                 }
@@ -72,25 +72,28 @@ if (count($res) == 0) {
                     $modal_finalizar = '#ModalFinalizar';
                 }
 
-                ?>
+            ?>
                 <tr>
                     <td><?php echo $nome_l; ?></td>
                     <td><?php echo $titulo_pl; ?></td>
                     <td><?php echo $desc_pl; ?></td>
                     <td><?php echo $data_ini . ' / ' . $data_fim; ?></td>
-                    <td><?php echo ($total_caps - $caps_lidos) . " Capítulos"?></td>
+                    <td><?php echo ($total_caps - $caps_lidos) . " Capítulos" ?></td>
                     <td class="<?php echo $status_pl_bg; ?>">
                         <?php echo $status_pl; ?>
                     </td>
                     <td width="5">
-                        <a href="#" class="text-primary" onclick="ConnectPL(<?php echo $id_pl ?>)"><i class="fa-solid fa-right-to-bracket"></i></a>
+                        <a href="#" class="text-primary" onclick="ConnectPL(<?php echo $id_pl ?>)"><i class="fa-solid fa-right-to-bracket connect_left"></i></a>
+                        <div class="spinner-border spinner_connect text-primary d-none" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </td>
                 </tr>
-                <?php
+            <?php
             }
             ?>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 <?php
 }
 ?>
