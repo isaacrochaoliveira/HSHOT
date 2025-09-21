@@ -79,20 +79,19 @@ if (count($res) == 0) {
                                 <th scope="col">Título</th>
                                 <th scope="col">Desc/Obser</th>
                                 <th scope="col" width="200">Inicio / Fim</th>
-                                <th scope="col" width="200">Cap Restantes</th>
-                                <th scope="col">Status</th>
+                                <th scope="col" width="200">Total de Capítulos</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            for ($i = 0; $i < count($res_pl); $i++) {
-                                $id_pl = $res_pl[$i]['id_pl'];
-                                $id_l = $res_pl[$i]['id_l'];
-                                $titulo_pl = $res_pl[$i]['titulo_pl'];
-                                $desc_pl = $res_pl[$i]['desc_pl'];
-                                $data_ini = $res_pl[$i]['data_ini_pl'];
-                                $data_fim = $res_pl[$i]['data_fim_pl'];
-                                $status_pl = $res_pl[$i]['status_pl'];
+                            for ($c = 0; $c < count($res_pl); $c++) {
+                                $id_pl = $res_pl[$c]['id_pl'];
+                                $id_l = $res_pl[$c]['id_l'];
+                                $titulo_pl = $res_pl[$c]['titulo_pl'];
+                                $desc_pl = $res_pl[$c]['desc_pl'];
+                                $data_ini = $res_pl[$c]['data_ini_pl'];
+                                $data_fim = $res_pl[$c]['data_fim_pl'];
+                                $status_pl = $res_pl[$c]['status_pl'];
 
                                 // Buscar o nome do livro com base no id_l
                                 $sql_livro = $pdo->query("SELECT nome_livro FROM livros WHERE id_l = '$id_l'");
@@ -108,7 +107,7 @@ if (count($res) == 0) {
                                     <td><?php echo $titulo_pl; ?></td>
                                     <td><?php echo $desc_pl; ?></td>
                                     <td><?php echo $data_ini . ' / ' . $data_fim; ?></td>
-                                    <td><?php echo $total_caps ?></td>
+                                    <td><?php echo $total_caps ?> Capítulos</td>
                                 </tr>
                             <?php
                             }
