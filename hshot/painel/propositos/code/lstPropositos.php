@@ -26,22 +26,15 @@ if (count($res) == 0) {
             $baseBiblica_mp = $res[$i]['baseBiblica_mp'];
             $dataCriacao_mp = $res[$i]['dataCriacao_mp'];
             $dataAcabar_mp = $res[$i]['dataAcabar_mp'];
+            $status_mp = $res[$i]['status_mp'];
             $id_pl = $res[$i]['id_pl_mp'];
 
             $dataCriacao_mp = date('d/m/Y', strtotime($dataCriacao_mp));
             $dataAcabar_mp = date('d/m/Y', strtotime($dataAcabar_mp));
 
-            if ($dataAcabar_mp == $today) {
-                $status = 'bg-danger text-danger';
-            } else {
-                $status = 'bg-success text-success';
-            }
         ?>
             <div class="w-25 my-2">
                 <div class="card" style="width: 26rem;">
-                    <div class="<?= $status ?>">
-                        Olá
-                    </div>
                     <img src="<?= URL . 'imagens/arvore-com-a-presenca.jpg' ?>" class="" alt="Arvore pegando fogo com a presençade Deus">
                     <div class="card-body">
                         <ul class="list-group list-group-flush f-14">
@@ -56,6 +49,22 @@ if (count($res) == 0) {
                             <div class="col-md-1">
                                 <a href="#" class="bg-primary text-white rounded p-2" data-bs-toggle="modal" data-bs-target="#ModalQuestion" onclick="document.getElementById('id_pl_mp').value = '<?php echo $id_mp ?>'"><i class="fa-solid fa-question"></i></a href="#">
                             </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-wrap justify-content-around">
+                            <button class="btn btn-primary" onclick="editProposito(<?=$id_mp?>)"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+                            <?php 
+                                if ($status_mp == 'Desligado') {
+                                    ?>
+                                        <button class="btn btn-success"><i class="fa-solid fa-turn-up"></i> Ligar</button>
+                                    <?php
+                                } else {
+                                    ?>
+                                        <button class="btn btn-danger"><i class="fa-solid fa-turn-down"></i> Desligar</button>
+                                    <?php
+                                }
+                            ?>
+                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i> Lixo</button>
                         </div>
                     </div>
                 </div>

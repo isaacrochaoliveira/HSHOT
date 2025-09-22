@@ -17,6 +17,12 @@ if (count($res) == 0) {
     echo "Processo deLeitura não encontrado!";
     exit();
 }
+$sql = $pdo->query("SELECT * FROM meus_propositos WHERE id_mp = '$id_mp'");
+$res = $sql->fetchAll(PDO::FETCH_ASSOC);
+if ($res[0]['id_pl_mp'] != "0") {
+    echo "Cada Propósito pode contar com 1 (Uma) Leitura";
+    exit();
+}
 
 $sql = $pdo->query("UPDATE meus_propositos SET id_pl_mp = '$id_pl' WHERE id_mp = '$id_mp' AND IP_mp = '$_SESSION[IP_mem]'");
 echo "Sucesso";

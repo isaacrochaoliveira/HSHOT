@@ -11,7 +11,7 @@ $sql = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 $sql_mp = $pdo->query("SELECT * FROM meus_propositos WHERE IP_mp = '$_SESSION[IP_mem]'");
-$res_mp = $
+$res_mp = $sql_mp->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) == 0) {
     echo "<tr><td colspan='7'>Nenhum processo encontrado.</td></tr>";
 } else {
@@ -74,7 +74,6 @@ if (count($res) == 0) {
                 } else {
                     $modal_finalizar = '#ModalFinalizar';
                 }
-
             ?>
                 <tr>
                     <td><?php echo $nome_l; ?></td>

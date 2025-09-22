@@ -113,6 +113,66 @@ if (!($_SESSION['IP_mem'])) {
     </div>
 </div>
 
+<div class="modal fade" id="ModalediPr" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Criar Propósito</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <div class="d-flex flex-wrap">
+                        <div class="col-md-7 mx-1">
+                            <div class="form-group">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="nome_mp" placeholder="Coloque um nome">
+                                    <label for="nome_mp">Nome(*)</label>
+                                </div>
+                            </div>
+                            <div class="form-group my-2">
+                                <div class="form-floating">
+                                    <textarea id="desc_mp" cols="50" rows="100" class="form-control"></textarea>
+                                    <label for="desc_mp">Dê uma descrição à seu propósito</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mx-1">
+                            <div class="form-group">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="baseBiblica_mp" placeholder="Base Biblica">
+                                    <label for="baseBiblica_mp">Base Biblica (EX: Gênesis 1:1)</label>
+                                </div>
+                            </div>
+                            <div class="form-group my-2">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="dataCriacao_mp" placeholder="*****" readonly>
+                                    <label for="dataCriacao_mp">Data de Criação</label>
+                                </div>
+                            </div>
+                            <div class="form-group my-2">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control" id="dataAcabar_mp" placeholder="*****">
+                                    <label for="dataAcabar_mp">Data para Acabar</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="text" id="InputMPEdit" hidden>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="EdtPro">Editar Propósito</button>
+                <button class="btn btn-primary buttonSpinner d-none" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                    <span role="status">Loading...</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="ModalQuestion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -215,6 +275,49 @@ if (!($_SESSION['IP_mem'])) {
 
 <script>
     $(document).ready(function() {
+        $("#EdtPro").click(function() {
+            var nome_mp = $('#nome_mp').val();
+            var desc_mp = $('#desc_mp').val();
+            var baseBiblica_mp = $('#baseBiblica_mp').val();
+            var dataCriacao_mp = $('#dataCriacao_mp').val();
+            var dataAcabar_mp = $('#dataAcabar_mp').val();
+
+            if (nome_mp == "") {
+                alert('Campo Nome Obrigatório');
+            }
+
+            $.ajax({
+                beforeSend: function() {
+                    $('.buttonSpinner').removeClass('d-none');
+                    $('#slvPro').addClass('d-none');
+                    setInterval(function() {
+                        $.ajax({
+                            url: 'painel/propositos/code/editarProposito.php',
+                            method: 'post',
+                            data: {
+                                nome_mp: nome_mp,
+                                desc_mp: desc_mp,
+                                baseBiblica_mp: baseBiblica_mp,
+                                dataCriacao_mp: dataCriacao_mp,
+                                dataAcabar_mp: dataAcabar_mp
+                            },
+                            success: function(data) {
+                                if (data.trim() == 'Sucesso') {
+                                    location.reload();
+                                } else {
+                                    alert(data)
+                                }
+                            }
+                        })
+                    }, 5000)
+                }
+            })
+        })
+    })
+</script>
+
+<script>
+    $(document).ready(function() {
         $.ajax({
             url: 'painel/propositos/code/lstPropositos.php',
             method: 'post',
@@ -266,5 +369,12 @@ if (!($_SESSION['IP_mem'])) {
                 }, 5000)
             }
         })
+    }
+</script>
+
+<script>
+    function editProposito(id_mp) {
+        $('#InputMPEdit').val(id_mp)
+        $('#ModalediPr').modal('show');
     }
 </script>
