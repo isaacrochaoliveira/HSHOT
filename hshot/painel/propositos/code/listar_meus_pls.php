@@ -7,8 +7,11 @@ require_once '../../../db/autenticator.php';
 if (!isset($_SESSION['IP_mem'])) {
     echo "<script>window.location='../../index.php'</script>";
 }
-$sql = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_mem]' ORDER BY id_pl DESC limit 10");
+$sql = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_mem]' ORDER BY id_pl DESC");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+$sql_mp = $pdo->query("SELECT * FROM meus_propositos WHERE IP_mp = '$_SESSION[IP_mem]'");
+$res_mp = $
 if (count($res) == 0) {
     echo "<tr><td colspan='7'>Nenhum processo encontrado.</td></tr>";
 } else {
@@ -21,7 +24,7 @@ if (count($res) == 0) {
                 <th scope="col">Título</th>
                 <th scope="col">Desc/Obser</th>
                 <th scope="col" width="200">Inicio / Fim</th>
-                <th scope="col" width="200">Cap Restantes</th>
+                <th scope="col" width="200">Total de Capítulos</th>
                 <th scope="col">Status</th>
             </tr>
         </thead>
