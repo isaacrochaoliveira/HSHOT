@@ -281,6 +281,7 @@ if (!($_SESSION['IP_mem'])) {
             var baseBiblica_mp = $('#baseBiblica_mp').val();
             var dataCriacao_mp = $('#dataCriacao_mp').val();
             var dataAcabar_mp = $('#dataAcabar_mp').val();
+            var id_mp = $('#id_mp').val();
 
             if (nome_mp == "") {
                 alert('Campo Nome Obrigatório');
@@ -295,6 +296,7 @@ if (!($_SESSION['IP_mem'])) {
                             url: 'painel/propositos/code/editarProposito.php',
                             method: 'post',
                             data: {
+                                id_mp: id_mp,
                                 nome_mp: nome_mp,
                                 desc_mp: desc_mp,
                                 baseBiblica_mp: baseBiblica_mp,
