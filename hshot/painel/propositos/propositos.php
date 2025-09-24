@@ -281,16 +281,12 @@ if (!($_SESSION['IP_mem'])) {
             var baseBiblica_mp = $('#baseBiblica_mp').val();
             var dataCriacao_mp = $('#dataCriacao_mp').val();
             var dataAcabar_mp = $('#dataAcabar_mp').val();
-            var id_mp = $('#id_mp').val();
-
-            if (nome_mp == "") {
-                alert('Campo Nome Obrigatório');
-            }
+            var id_mp = $('#InputMPEdit').val();
 
             $.ajax({
                 beforeSend: function() {
                     $('.buttonSpinner').removeClass('d-none');
-                    $('#slvPro').addClass('d-none');
+                    $('#EdtPro').addClass('d-none');
                     setInterval(function() {
                         $.ajax({
                             url: 'painel/propositos/code/editarProposito.php',
