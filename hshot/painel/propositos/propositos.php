@@ -106,7 +106,7 @@ if (!($_SESSION['IP_mem'])) {
                 <button type="button" class="btn btn-primary" id="slvPro">Salvar Propósito</button>
                 <button class="btn btn-primary buttonSpinner d-none" type="button" disabled>
                     <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
-                    <span role="status">Loading...</span>
+                    <span role="status">Carregando...</span>
                 </button>
             </div>
         </div>
@@ -117,7 +117,7 @@ if (!($_SESSION['IP_mem'])) {
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Criar Propósito</h1>
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Modo de Edição</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -166,7 +166,7 @@ if (!($_SESSION['IP_mem'])) {
                 <button type="button" class="btn btn-primary" id="EdtPro">Editar Propósito</button>
                 <button class="btn btn-primary buttonSpinner d-none" type="button" disabled>
                     <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
-                    <span role="status">Loading...</span>
+                    <span role="status">Carregando...</span>
                 </button>
             </div>
         </div>
@@ -205,6 +205,44 @@ if (!($_SESSION['IP_mem'])) {
             </div>
             <div class="modal-body">
                 <div class="meus_pl">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalLixoMp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Confirmação:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="arvo-regular f-20">Tem certeza que deseja excluir o propósito?</p>
+            </div>
+            <div class="modal-footer">
+                <input type="text" id="inputlixomp" hidden>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button class="btn btn-danger" onclick="mplixo()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalMSG" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Mensagem:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="msg-from-system">
 
                 </div>
             </div>
@@ -259,10 +297,11 @@ if (!($_SESSION['IP_mem'])) {
                                 dataAcabar_mp: dataAcabar_mp
                             },
                             success: function(data) {
-                                if (data.trim() == 'Sucesso') {
+                                if (data.trim() == 'Sucesso!') {
                                     location.reload();
                                 } else {
-                                    alert(data)
+                                    $('.msg-from-system').text(data);
+                                    $('#ModalMSG').modal('show');
                                 }
                             }
                         })
@@ -303,7 +342,8 @@ if (!($_SESSION['IP_mem'])) {
                                 if (data.trim() == 'Sucesso!') {
                                     location.reload();
                                 } else {
-                                    alert(data)
+                                    $('.msg-from-system').text(data);
+                                    $('#ModalMSG').modal('show');
                                 }
                             }
                         })
@@ -357,13 +397,14 @@ if (!($_SESSION['IP_mem'])) {
                             id_mp: id_mp
                         },
                         success: function(msg) {
-                            if (msg.trim() == 'Sucesso') {
+                            if (msg.trim() == 'Sucesso!') {
                                 location.reload();
                             } else {
-                                alert(msg);
+                                $('.msg-from-system').text(data);
+                                $('#ModalMSG').modal('show');
                             }
                         }
-                    })  
+                    })
                 }, 5000)
             }
         })
@@ -389,7 +430,8 @@ if (!($_SESSION['IP_mem'])) {
                     $('#edataAcabar_mp').val(dat[4]);
                     $('#ModalediPr').modal('show');
                 } else {
-                    alert(data);
+                    $('.msg-from-system').text(data);
+                    $('#ModalMSG').modal('show');
                 }
             }
         })
@@ -398,6 +440,28 @@ if (!($_SESSION['IP_mem'])) {
 
 <script>
     function modalLixoMp(id_mp) {
-        
+        $('#inputlixomp').val(id_mp);
+        $("#ModalLixoMp").modal('show');
+    }
+</script>
+
+<script>
+    function mplixo() {
+        var id_mp = $('#inputlixomp').val();
+        $.ajax({
+            url: 'painel/propositos/code/lixo.php',
+            method: 'post',
+            data: {
+                id_mp: id_mp
+            },
+            success: function(data) {
+                if (data.trim() == 'Sucesso!') {
+                    location.reload();
+                } else {
+                    $('.msg-from-system').text(data);
+                    $('#ModalMSG').modal('show');
+                }
+            }
+        })
     }
 </script>
