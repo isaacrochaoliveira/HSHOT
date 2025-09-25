@@ -17,7 +17,7 @@ if (count($res) == 0) {
     exit();
 } else {
 ?>
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap gap-3">
         <?php
         for ($i = 0; $i < count($res); $i++) {
             $id_mp = $res[$i]['id_mp'];
@@ -32,100 +32,74 @@ if (count($res) == 0) {
             $dataCriacao_mp = date('d/m/Y', strtotime($dataCriacao_mp));
             $dataAcabar_mp = date('d/m/Y', strtotime($dataAcabar_mp));
 
+            $sql_pl = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id_pl'");
+            $res_pl = $sql_pl->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($id_pl != 0) {
+                $id_pl = $res_pl[0]['id_pl'];
+                $id_l = $res_pl[0]['id_l'];
+                $titulo_pl = $res_pl[0]['titulo_pl'];
+                $desc_pl = $res_pl[0]['desc_pl'];
+                $data_ini = $res_pl[0]['data_ini_pl'];
+                $data_fim = $res_pl[0]['data_fim_pl'];
+                $status_pl = $res_pl[0]['status_pl'];
+
+                // Buscar o nome do livro com base no id_l
+                $sql_livro = $pdo->query("SELECT nome_livro FROM livros WHERE id_l = '$id_l'");
+                $res_livro = $sql_livro->fetchAll(PDO::FETCH_ASSOC);
+                $nome_l = count($res_livro) > 0 ? $res_livro[0]['nome_livro'] : 'Livro não encontrado';
+
+                $sql_caps = $pdo->query("SELECT * FROM capitulos WHERE id_c = '$id_l'");
+                $res_caps = $sql_caps->fetchAll(PDO::FETCH_ASSOC);
+                $total_caps = $res_caps[0]['quant_c'];
+            } else {
+                $titulo_pl = '<desconhecido>';
+            }
         ?>
-            <div class="w-25 my-2">
-                <div class="card" style="width: 26rem;">
-                    <img src="<?= URL . 'imagens/arvore-com-a-presenca.jpg' ?>" class="" alt="Arvore pegando fogo com a presençade Deus">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush f-14">
-                            <li class="list-group-item">Criado no dia <?php echo $dataCriacao_mp ?> com prazo até <mark style="background-color: yellow;"><strong><?php echo $dataAcabar_mp ?></strong></mark></li>
-                        </ul>
-                        <h5 class="card-title arvo-regular-italic f-36"><?= $nome_mp ?></h5>
-                        <span class="anton-regular f-14"><?php echo $baseBiblica_mp ?></span>
-                        <div class="d-flex flex-wrap">
-                            <div class="col-md-11">
-                                <p class="card-text arvo-regular f-16"><?php echo $desc_mp ?></p>
-                            </div>
-                            <div class="col-md-1">
-                                <a href="#" class="bg-primary text-white rounded p-2" data-bs-toggle="modal" data-bs-target="#ModalQuestion" onclick="document.getElementById('id_pl_mp').value = '<?php echo $id_mp ?>'"><i class="fa-solid fa-question"></i></a href="#">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="d-flex flex-wrap justify-content-around">
-                            <button class="btn btn-primary" onclick="editProposito(<?=$id_mp?>)"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-                            <?php 
+            <div class="card" style="width: 26rem;">
+                <ul class="list-group list-group-flush f-14">
+                    <li class="list-group-item">Vinculado ao Processo: <?php echo $titulo_pl ?></li>
+                    <li class="list-group-item">Criado no dia <?php echo $dataCriacao_mp ?> com prazo até <mark style="background-color: yellow;"><strong><?php echo $dataAcabar_mp ?></strong></mark></li>
+                </ul>
+                <img src="<?= URL . 'imagens/arvore-com-a-presenca.jpg' ?>" class="" alt="Arvore pegando fogo com a presençade Deus">
+                <div class="aks">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title arvo-regular-italic f-24"><strong><?= $nome_mp ?></strong></h5>
+                    <span class="anton-regular f-14"><?php echo $baseBiblica_mp ?></span>
+                    <p class="card-text arvo-regular f-16"><?php echo $desc_mp ?></p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-gear"></i> Configurações
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalQuestion" onclick="document.getElementById('id_pl_mp').value = '<?php echo $id_mp ?>'"><i class="fa-solid fa-question"></i> Conectar</a>
+                            </li>
+                            <li onclick="editProposito(<?= $id_mp ?>)"><a class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
+                            <li>
+                                <?php
                                 if ($status_mp == 'Desligado') {
-                                    ?>
-                                        <button class="btn btn-success"><i class="fa-solid fa-turn-up"></i> Ligar</button>
-                                    <?php
+                                ?>
+                                    <a href="#" class="dropdown-item"><i class="fa-solid fa-turn-up"></i> Ligar</a>
+                                <?php
                                 } else {
-                                    ?>
-                                        <button class="btn btn-danger"><i class="fa-solid fa-turn-down"></i> Desligar</button>
-                                    <?php
+                                ?>
+                                    <a href="#" class="dropdown-item"><i class="fa-solid fa-turn-down"></i> Desligar</a>
+                                <?php
                                 }
-                            ?>
-                            <button class="btn btn-danger" onclick="modalLixoMp(<?php echo $id_mp ?>)"><i class="fa-solid fa-trash"></i> Lixo</button>
-                        </div>
+                                ?>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item"></a>
+                            </li>
+                            <li onclick="modalLixoMp(<?php echo $id_mp ?>)"><a class="dropdown-item" href="#"><i class="fa-solid fa-trash"></i> Lixo</a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <div class="w-75 my-2">
-                <?php
-                $sql_pl = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id_pl'");
-                $res_pl = $sql_pl->fetchAll(PDO::FETCH_ASSOC);
-                if (count($res_pl) == 0) {
-                ?>
-                    <div class="alert alert-primary" role="alert">
-                        Este propósito não está vinculado com nenhum processo de leitura
-                    </div>
-                <?php
-                } else {
-                ?>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Livro</th>
-                                <th scope="col">Título</th>
-                                <th scope="col">Desc/Obser</th>
-                                <th scope="col" width="200">Inicio / Fim</th>
-                                <th scope="col" width="200">Total de Capítulos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            for ($c = 0; $c < count($res_pl); $c++) {
-                                $id_pl = $res_pl[$c]['id_pl'];
-                                $id_l = $res_pl[$c]['id_l'];
-                                $titulo_pl = $res_pl[$c]['titulo_pl'];
-                                $desc_pl = $res_pl[$c]['desc_pl'];
-                                $data_ini = $res_pl[$c]['data_ini_pl'];
-                                $data_fim = $res_pl[$c]['data_fim_pl'];
-                                $status_pl = $res_pl[$c]['status_pl'];
-
-                                // Buscar o nome do livro com base no id_l
-                                $sql_livro = $pdo->query("SELECT nome_livro FROM livros WHERE id_l = '$id_l'");
-                                $res_livro = $sql_livro->fetchAll(PDO::FETCH_ASSOC);
-                                $nome_l = count($res_livro) > 0 ? $res_livro[0]['nome_livro'] : 'Livro não encontrado';
-
-                                $sql_caps = $pdo->query("SELECT * FROM capitulos WHERE id_c = '$id_l'");
-                                $res_caps = $sql_caps->fetchAll(PDO::FETCH_ASSOC);
-                                $total_caps = $res_caps[0]['quant_c'];
-                            ?>
-                                <tr>
-                                    <td><?php echo $nome_l; ?></td>
-                                    <td><?php echo $titulo_pl; ?></td>
-                                    <td><?php echo $desc_pl; ?></td>
-                                    <td><?php echo $data_ini . ' / ' . $data_fim; ?></td>
-                                    <td><?php echo $total_caps ?> Capítulos</td>
-                                </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                <?php
-                }
-                ?>
             </div>
         <?php
         }
