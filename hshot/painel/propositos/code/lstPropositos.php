@@ -64,7 +64,7 @@ if (count($res) == 0) {
                                     <?php
                                 }
                             ?>
-                            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i> Lixo</button>
+                            <button class="btn btn-danger"><i class="fa-solid fa-trash" onclick="modalLixoMp(<?php echo $id_mp ?>)"></i> Lixo</button>
                         </div>
                     </div>
                 </div>

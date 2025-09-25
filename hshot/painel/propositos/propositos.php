@@ -126,13 +126,13 @@ if (!($_SESSION['IP_mem'])) {
                         <div class="col-md-7 mx-1">
                             <div class="form-group">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="nome_mp" placeholder="Coloque um nome">
+                                    <input type="text" class="form-control" id="enome_mp" placeholder="Coloque um nome">
                                     <label for="nome_mp">Nome(*)</label>
                                 </div>
                             </div>
                             <div class="form-group my-2">
                                 <div class="form-floating">
-                                    <textarea id="desc_mp" cols="50" rows="100" class="form-control"></textarea>
+                                    <textarea id="edesc_mp" cols="50" rows="100" class="form-control"></textarea>
                                     <label for="desc_mp">Dê uma descrição à seu propósito</label>
                                 </div>
                             </div>
@@ -140,19 +140,19 @@ if (!($_SESSION['IP_mem'])) {
                         <div class="col-md-4 mx-1">
                             <div class="form-group">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="baseBiblica_mp" placeholder="Base Biblica">
+                                    <input type="text" class="form-control" id="ebaseBiblica_mp" placeholder="Base Biblica">
                                     <label for="baseBiblica_mp">Base Biblica (EX: Gênesis 1:1)</label>
                                 </div>
                             </div>
                             <div class="form-group my-2">
                                 <div class="form-floating">
-                                    <input type="date" class="form-control" id="dataCriacao_mp" placeholder="*****" readonly>
+                                    <input type="date" class="form-control" id="edataCriacao_mp" placeholder="*****" readonly>
                                     <label for="dataCriacao_mp">Data de Criação</label>
                                 </div>
                             </div>
                             <div class="form-group my-2">
                                 <div class="form-floating">
-                                    <input type="date" class="form-control" id="dataAcabar_mp" placeholder="*****">
+                                    <input type="date" class="form-control" id="edataAcabar_mp" placeholder="*****">
                                     <label for="dataAcabar_mp">Data para Acabar</label>
                                 </div>
                             </div>
@@ -276,11 +276,11 @@ if (!($_SESSION['IP_mem'])) {
 <script>
     $(document).ready(function() {
         $("#EdtPro").click(function() {
-            var nome_mp = $('#nome_mp').val();
-            var desc_mp = $('#desc_mp').val();
-            var baseBiblica_mp = $('#baseBiblica_mp').val();
-            var dataCriacao_mp = $('#dataCriacao_mp').val();
-            var dataAcabar_mp = $('#dataAcabar_mp').val();
+            var nome_mp = $('#enome_mp').val();
+            var desc_mp = $('#edesc_mp').val();
+            var baseBiblica_mp = $('#ebaseBiblica_mp').val();
+            var dataCriacao_mp = $('#edataCriacao_mp').val();
+            var dataAcabar_mp = $('#edataAcabar_mp').val();
             var id_mp = $('#InputMPEdit').val();
 
             $.ajax({
@@ -300,7 +300,7 @@ if (!($_SESSION['IP_mem'])) {
                                 dataAcabar_mp: dataAcabar_mp
                             },
                             success: function(data) {
-                                if (data.trim() == 'Sucesso') {
+                                if (data.trim() == 'Sucesso!') {
                                     location.reload();
                                 } else {
                                     alert(data)
@@ -372,7 +372,32 @@ if (!($_SESSION['IP_mem'])) {
 
 <script>
     function editProposito(id_mp) {
-        $('#InputMPEdit').val(id_mp)
-        $('#ModalediPr').modal('show');
+        $.ajax({
+            url: 'painel/propositos/code/pegar_dados.php',
+            method: 'post',
+            data: {
+                id_mp: id_mp
+            },
+            success: function(data) {
+                var dat = data.split(';');
+                if (dat[0] != 'Propóosito não encontrado!') {
+                    $('#InputMPEdit').val(id_mp)
+                    $('#enome_mp').val(dat[0])
+                    $('#edesc_mp').val(dat[1]);
+                    $('#ebaseBiblica_mp').val(dat[2]);
+                    $('#edataCriacao_mp').val(dat[3]);
+                    $('#edataAcabar_mp').val(dat[4]);
+                    $('#ModalediPr').modal('show');
+                } else {
+                    alert(data);
+                }
+            }
+        })
+    }
+</script>
+
+<script>
+    function modalLixoMp(id_mp) {
+        
     }
 </script>
