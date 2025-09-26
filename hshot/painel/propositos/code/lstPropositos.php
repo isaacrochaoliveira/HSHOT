@@ -8,9 +8,15 @@ if (!isset($_SESSION['IP_mem'])) {
     echo "<script>window.location='../../index.php'</script>";
 }
 
-$today = date('d/m/Y');
-
-$sql = $pdo->query("SELECT * FROM meus_propositos WHERE IP_mp = '$_SESSION[IP_mem]'");
+if (isset($_POST)) {
+    if (!isset($_POST['nome'])) {
+        $sql = $pdo->query("SELECT * FROM meus_propositos WHERE IP_mp = '$_SESSION[IP_mem]'");    
+    } else {
+        $sql = $pdo->query("SELECT * FROM meus_propositos WHERE nome_mp Like '%$_POST[nome]%' AND IP_mp = '$_SESSION[IP_mem]'");
+    }
+} else {
+    $sql = $pdo->query("SELECT * FROM meus_propositos WHERE IP_mp = '$_SESSION[IP_mem]'");
+}
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) == 0) {
     echo "Nenhum Registro Encontrado...";

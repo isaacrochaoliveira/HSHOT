@@ -14,11 +14,11 @@ $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) > 0) {
     if ($res[0]['status_mp'] == 'Ligado') {
         $pdo->query("UPDATE meus_propositos SET status_mp = 'Desligado' WHERE id_mp = '$id_mp'");
-        echo "Sucesso!";
+        echo "Propósito " . $res[0]['nome_mp'] . " Desligado com Sucesso!";
         exit();
     } else {
         $pdo->query("UPDATE meus_propositos SET status_mp = 'Ligado' WHERE id_mp = '$id_mp'");
-        echo "Sucesso!";
+        echo "Propósito " . $res[0]['nome_mp'] . " Ligado com Sucesso!";
         exit();
     }
 } else {

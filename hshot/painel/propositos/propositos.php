@@ -7,12 +7,15 @@ if (!($_SESSION['IP_mem'])) {
     echo "<script>href.location = 'home.php'</script>";
 }
 ?>
-<div class="text-center">
+<div class="">
     <h1 class="anton-regular">Criador de Próposito</h1>
     <p class="arvo-regular">Se Comprometa com seu Pai, e Ele se compromete com você</p>
-    <div class="d-flex flex-wrap gap-3">
-        <div class="mx-auto">
-            <p class="btn btn-primary arvo-regular AddPr">Adcionar <i class="fa-solid fa-plus"></i></p>
+    <div class="d-flex flex-wrap gap-2">
+        <div>
+            <button class="btn btn-primary arvo-regular AddPr">Adcionar <i class="fa-solid fa-plus"></i></button>
+        </div>
+        <div class="">
+            <input type="text" id="search_mpInput" class="form-control" placeholder="Pesquisar p/ Nome" oninput="search_mp()">
         </div>
     </div>
 </div>
@@ -247,18 +250,18 @@ if (!($_SESSION['IP_mem'])) {
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.reload();">Fechar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- <script>
+<script>
     $(document).ready(function() {
         $("#ModalExplic").modal('show');
     })
-</script> -->
+</script>
 
 <script>
     $(document).ready(function() {
@@ -475,13 +478,27 @@ if (!($_SESSION['IP_mem'])) {
                 id_mp: id_mp
             },
             success: function(data) {
-                if (data.trim() == 'Sucesso!') {
-                    location.reload();
-                } else {
-                    $('.msg-from-system').text(data);
-                    $('#ModalMSG').modal('show');
-                }
+                $('.msg-from-system').text(data);
+                $('#ModalMSG').modal('show');
             }
         })
+    }
+</script>
+
+<script>
+    function search_mp() {
+        var seached = $('#search_mpInput').val();
+        $(document).ready(function() {
+        $.ajax({
+            url: 'painel/propositos/code/lstPropositos.php',
+            method: 'post',
+            data: {
+                nome:seached
+            },
+            success: function(data) {
+                $('.meus_propositos').html(data);
+            }
+        })
+    })
     }
 </script>
