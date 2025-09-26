@@ -465,3 +465,23 @@ if (!($_SESSION['IP_mem'])) {
         })
     }
 </script>
+
+<script>
+    function AtulizarStatus_mp(id_mp) {
+        $.ajax({
+            url: 'painel/propositos/code/atualizar_status.php',
+            method: 'post',
+            data: {
+                id_mp: id_mp
+            },
+            success: function(data) {
+                if (data.trim() == 'Sucesso!') {
+                    location.reload();
+                } else {
+                    $('.msg-from-system').text(data);
+                    $('#ModalMSG').modal('show');
+                }
+            }
+        })
+    }
+</script>

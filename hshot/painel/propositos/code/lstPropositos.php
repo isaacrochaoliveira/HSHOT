@@ -55,11 +55,17 @@ if (count($res) == 0) {
             } else {
                 $titulo_pl = '<desconhecido>';
             }
+
+            if ($status_mp == 'Ligado') {
+                $status_mp_bg = 'success';
+            } else {
+                $status_mp_bg = 'danger';
+            }
         ?>
             <div class="card" style="width: 26rem;">
                 <ul class="list-group list-group-flush f-14">
-                    <li class="list-group-item">Vinculado ao Processo: <?php echo $titulo_pl ?></li>
-                    <li class="list-group-item">Criado no dia <?php echo $dataCriacao_mp ?> com prazo até <mark style="background-color: yellow;"><strong><?php echo $dataAcabar_mp ?></strong></mark></li>
+                    <li class="list-group-item arvo-regular">Vinculado ao Processo: <strong class="arvo-regular-italic"><?php echo $titulo_pl ?></strong></li>
+                    <li class="list-group-item arvo-regular">Criado no dia <?php echo $dataCriacao_mp ?> com prazo até <mark style="background-color: yellow;"><strong><?php echo $dataAcabar_mp ?></strong></mark></li>
                 </ul>
                 <img src="<?= URL . 'imagens/arvore-com-a-presenca.jpg' ?>" class="" alt="Arvore pegando fogo com a presençade Deus">
                 <div class="aks">
@@ -69,7 +75,7 @@ if (count($res) == 0) {
                     <span class="anton-regular f-14"><?php echo $baseBiblica_mp ?></span>
                     <p class="card-text arvo-regular f-16"><?php echo $desc_mp ?></p>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button type="button" class="btn btn-<?=$status_mp_bg?> dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-gear"></i> Configurações
                         </button>
                         <ul class="dropdown-menu">
@@ -81,11 +87,11 @@ if (count($res) == 0) {
                                 <?php
                                 if ($status_mp == 'Desligado') {
                                 ?>
-                                    <a href="#" class="dropdown-item"><i class="fa-solid fa-turn-up"></i> Ligar</a>
+                                    <a href="#" class="dropdown-item" onclick="AtulizarStatus_mp(<?php echo $id_mp ?>)"><i class="fa-solid fa-turn-up"></i> Ligar</a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a href="#" class="dropdown-item"><i class="fa-solid fa-turn-down"></i> Desligar</a>
+                                    <a href="#" class="dropdown-item" onclick="AtulizarStatus_mp(<?php echo $id_mp ?>)""><i class="fa-solid fa-turn-down"></i> Desligar</a>
                                 <?php
                                 }
                                 ?>
