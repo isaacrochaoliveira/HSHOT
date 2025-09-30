@@ -9,13 +9,20 @@ if (!isset($_SESSION['IP_mem'])) {
 }
 
 ?>
+<div class="container">
+    <div class="row">
+        <div class="col border p-4 info">
+            
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box text-bg-danger">
             <div class="inner">
                 <h3>65</h3>
-                <p>Unique Visitors</p>
+                <p>Processos de Leituras</p>
             </div>
             <svg
                 class="small-box-icon"
@@ -39,5 +46,30 @@ if (!isset($_SESSION['IP_mem'])) {
             </a>
         </div>
     </div>
-    <!-- ./col -->
 </div>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'painel/code/versiculo-do-dia.php',
+            method: 'post',
+            data: {},
+            success: function(data) {
+                $('.info').html(data)
+            }
+        })
+    })
+</script>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '',
+            method: 'post',
+            data: {},
+            success: function(data) {
+                
+            }
+        })
+    })
+</script>
