@@ -37,17 +37,17 @@ if (count($res) == 0) {
 
                 
                 ?>
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 22rem;">
                         <div class="card-body">
                             <h5 class="card-title anton-regular"><?php echo $nome_livro ?> <?php echo $capitulo . ":". $versiculo?></h5><br>
                             <?php
                                 if (($pensamento == '') || ($pensamento == 'Versículo Destacado') || (($pensamento == 'Versículo destacado'))) {
                                     ?>
-                                        <p class="card-text"><?php echo $versiculo_texto ?></p>
+                                        <p class="card-text arvo-regular-italic f-16"><?php echo $versiculo_texto ?></p>
                                     <?php
                                 } else {
                                     ?>
-                                        <p class="card-text"><mark><?php echo $pensamento?></mark></p>
+                                        <p class="card-text arvo-regular f-16"><mark class="py-2 px-1" style="background-color: #7FC8E4; border-radius: 20px"><?php echo $pensamento?></mark></p>
                                     <?php
                                 }
                                     ?>
