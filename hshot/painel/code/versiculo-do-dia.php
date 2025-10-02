@@ -13,13 +13,15 @@ if (!isset($_SESSION['IP_mem'])) {
 $sql = $pdo->query("SELECT * FROM versiculo_do_dia;");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 $count = count($res);
+
 $a = random_int(0, $count-1);
+$ref_vdd = $res[$a]['ref_vdd'];
+$vers_vdd = $res[$a]['vers_vdd'];
+
 $tomorrow = date('Y-m-d', strtotime('tomorrow'));
 
 $sql_gf = $pdo->query("SELECT * FROM versiculo_grifado;");
 $res_gf = $sql_gf->fetchAll(PDO::FETCH_ASSOC);
-$ref_vdd = $res[$a]['ref_vdd'];
-$vers_vdd = $res[$a]['vers_vdd'];
 if (count($res_gf) == 0) {
     $pdo->query("INSERT INTO versiculo_grifado SET ref_gf = '$ref_vdd', vers_gf = '$vers_vdd', limite_gf  = '$tomorrow'");
 
