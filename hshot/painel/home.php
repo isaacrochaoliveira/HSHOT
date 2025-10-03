@@ -16,13 +16,13 @@ if (!isset($_SESSION['IP_mem'])) {
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row mt-2">
     <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box text-bg-danger">
+        <div class="small-box text-bg-primary">
             <div class="inner">
-                <h3>65</h3>
-                <p>Olá, Mundo!</p>
+                <h3>0</h3>
+                <p>Processos De Leituras</p>
             </div>
             <svg
                 class="small-box-icon"
