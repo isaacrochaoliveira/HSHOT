@@ -4,10 +4,6 @@ require_once 'db/connect.php';
 require_once 'db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
-
 ?>
 <div class="p-4 info">
 
@@ -15,7 +11,6 @@ if (!isset($_SESSION['IP_mem'])) {
 <div class="diag">
 
 </div>
-
 <script>
     $(document).ready(function() {
         $.ajax({
