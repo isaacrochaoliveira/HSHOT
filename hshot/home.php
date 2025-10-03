@@ -65,8 +65,7 @@ if (isset($_GET['pag'])) {
                     <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil</a></li>
                 </ul>
                 <ul class="nav">
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2">Login</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2">Sign up</a></li>
+                    <li class="nav-item"><a href="home.php?pag=login" class="nav-link text-white px-2">Login/Registro</a></li>
                 </ul>
             </div>
         </nav>
@@ -79,6 +78,8 @@ if (isset($_GET['pag'])) {
             require_once 'painel/processos_leituras/meus-processos.php';
         } else if ($pag == "propositos") {
             require_once('painel/propositos/propositos.php');
+        } else if ($pag == 'login') {
+            require_once("painel/login.php");
         } else {
             require_once 'painel/home.php';
         }

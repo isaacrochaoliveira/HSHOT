@@ -7,6 +7,7 @@ require_once '../../db/autenticator.php';
 if (!isset($_SESSION['IP_mem'])) {
     echo "<script>window.location='../../index.php'</script>";
 }
+$total_capitulos = 0;
 
 $sql = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_mem]'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -24,10 +25,20 @@ $total_processos_abertos = count($res_fin);
 $sql_ver = $pdo->query("SELECT * FROM versiculos_destacados WHERE IP_mem_vd = '$_SESSION[IP_mem]' AND id_pl = '$id_pl'");
 $res_ver = $sql_ver->fetchAll(PDO::FETCH_ASSOC);
 $versiculos_destacados = count($res_ver);
+
+$sql_cap = $pdo->query("SELECT * FROM pl_inserircap WHERE IP_mem_ic = '$_SESSION[IP_mem]' AND id_pl = '$id_pl'");
+$res_cap = $sql_cap->fetchAll(PDO::FETCH_ASSOC);
+if (count($res_cap) > 0) {
+    for ($c = 0; $c < count($res_cap); $c++) {
+        $total_capitulos += $res_cap[$c]['quant_ic'];
+    }
+}
+
 ?>
-<div class="d-flex flex-wrap gap-1">
+<div class="d-flex flex-wrap gap-1 justify-content-around">
     <?php
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 5; $i++) {
+            $read_more = 'http://localhost/HSHOT/hshot/home.php?pag=processos';
             switch ($i) {
                 case 0:
                     $titulo_widget = 'Total de Processos';
@@ -49,9 +60,14 @@ $versiculos_destacados = count($res_ver);
                     $valor = $versiculos_destacados;
                     $bg = 'warning';
                     break;
+                case 4:
+                    $titulo_widget = 'Capítulos Lídos';
+                    $valor = $total_capitulos;
+                    $bg = 'dark';
+                    break;
             }
         ?>
-            <div class="col-md-6">
+            <div class="col-6 col-lg-3">
                 <!-- small box -->
                 <div class="small-box text-bg-<?=$bg?>">
                     <div class="inner">
@@ -74,9 +90,9 @@ $versiculos_destacados = count($res_ver);
                             d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
                     </svg>
                     <a
-                        href="#"
+                        href="<?php echo $read_more ?>"
                         class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                        More info <i class="bi bi-link-45deg"></i>
+                        Saiba Mais <i class="fa-solid fa-right-long"></i>
                     </a>
                 </div>
             </div>
