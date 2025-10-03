@@ -22,7 +22,7 @@ if (!isset($_SESSION['IP_mem'])) {
         <div class="small-box text-bg-danger">
             <div class="inner">
                 <h3>65</h3>
-                <p>Processos de Leituras</p>
+                <p>Olá, Mundo!</p>
             </div>
             <svg
                 class="small-box-icon"
