@@ -4,16 +4,16 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+
+$ident = AUTENT();
+
 $id_PL = $_POST['id'] ?? '';
 if ($id_PL == '') {
     echo "ID do processo não fornecido.";
     exit;
 }
 
-$sql = $pdo->query("SELECT * FROM versiculos_destacados WHERE id_pl = '$id_PL' AND IP_mem_vd = '$_SESSION[IP_mem]' ORDER BY id_vd DESC");
+$sql = $pdo->query("SELECT * FROM versiculos_destacados WHERE id_pl = '$id_PL' AND id_mem_vd = '$ident' ORDER BY id_vd DESC");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) == 0) {
     echo "<p class='arvo-regular'>Nenhum versículo destacado encontrado para este processo.</p>";
@@ -22,7 +22,7 @@ if (count($res) == 0) {
     <div class="d-flex flex-wrap gap-3">
         <?php
             for ($i = 0; $i < count($res); $i+=1) {
-                $sql_pl = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id_PL' AND IP_mem = '$_SESSION[IP_mem]'");
+                $sql_pl = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id_PL' AND id_mem_pl = '$ident'");
                 $res_pl = $sql_pl->fetchAll(PDO::FETCH_ASSOC);
                 $livro_n = $res_pl[0]['id_l'] ?? '';
             

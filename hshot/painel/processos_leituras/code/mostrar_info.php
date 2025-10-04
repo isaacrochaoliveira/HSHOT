@@ -4,16 +4,15 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+
+$ident = AUTENT();
 
 $id = $_POST['id'] ?? '';
 if ($id == '') {
     echo "ID do processo não fornecido.";
     exit;
 }
-$sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id' AND IP_mem = '$_SESSION[IP_mem]'");
+$sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id' AND id_mem_pl = '$ident'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) == 0) {
     echo "Processo não encontrado ou você não tem permissão para visualizá-lo.";
@@ -35,7 +34,7 @@ if (count($res) == 0) {
     $res_caps = $sql_caps->fetchAll(PDO::FETCH_ASSOC);
     $total_caps = $res_caps[0]['quant_c'];
 
-    $sql_caps_lidos = $pdo->query("SELECT * FROM pl_inserircap WHERE id_pl = '$id_pl' AND id_l = '$id_l' AND IP_mem_ic = '$_SESSION[IP_mem]'");
+    $sql_caps_lidos = $pdo->query("SELECT * FROM pl_inserircap WHERE id_pl = '$id_pl' AND id_l = '$id_l' AND id_mem_ic = '$ident'");
     $res_caps_lidos = $sql_caps_lidos->fetchAll(PDO::FETCH_ASSOC);
     $caps_lidos = 0;
     if (count($res_caps_lidos) > 0) {

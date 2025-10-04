@@ -1,6 +1,7 @@
 <?php
 require_once 'db/connect.php';
 require_once 'db/autenticator.php';
+require_once 'db/logoff.php';
 @session_start();
 
 $pag = "";
@@ -50,25 +51,37 @@ if (isset($_GET['pag'])) {
 
 <body>
     <header class="py-3 mb-4 border-bottom">
-        <div class="container d-flex flex-wrap justify-content-center menu-header">
-            <a href="/" class="d-flex text-center text-decoration-none anton-regular">
-                HSHOT
-            </a>
-        </div>
-        <nav class="py-2">
-            <div class="container d-flex flex-wrap">
-                <ul class="nav me-auto text-white">
-                    <li class="nav-item"><a href="home.php" class="nav-link text-white px-2 active" aria-current="page">Painel</a></li>
-                    <li class="nav-item"><a href="home.php?pag=leitura" class="nav-link text-white px-2">Leitura</a></li>
-                    <li class="nav-item"><a href="home.php?pag=propositos" class="nav-link text-white px-2">Propósitos</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil</a></li>
-                </ul>
-                <ul class="nav">
-                    <li class="nav-item"><a href="home.php?pag=login" class="nav-link text-white px-2">Login/Registro</a></li>
-                </ul>
-            </div>
-        </nav>
+        <?php 
+            if (AUTENT()) {
+                ?>
+                <nav class="py-2">
+                    <div class="container d-flex flex-wrap">
+                        <ul class="nav me-auto text-white">
+                            <li class="nav-item"><a href="home.php" class="nav-link text-white px-2 active" aria-current="page">Painel <i class="fa-solid fa-chart-line"></i></a></li>
+                            <li class="nav-item"><a href="home.php?pag=leitura" class="nav-link text-white px-2">Leitura <i class="fa-solid fa-book-bible"></i></a></li>
+                            <li class="nav-item"><a href="home.php?pag=propositos" class="nav-link text-white px-2">Propósitos <i class="fa-solid fa-person-praying"></i></a></li>
+                            <li class="nav-item"><a href="#" class="nav-link text-white px-2">FAQs</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil <i class="fa-regular fa-user"></i></a></li>
+                        </ul>
+                        <ul class="nav">
+                            <?php
+                            if (AUTENT()) {
+                            ?>
+                                <li class="nav-item"><a href="http://localhost/HSHOT/hshot/home.php?pag=logoff" class="btn btn-danger px-2">SAIR/LOGOFF <i class="fa-solid fa-right-from-bracket"></i></a></li>
+                            <?php
+                            } else {
+                            ?>
+                                <li class="nav-item"><a href="home.php?pag=login" class="nav-link text-white px-2">Login/Registro</a></li>
+
+                            <?php
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </nav>
+                <?php
+            }
+        ?>
     </header>
     <section class="p-3">
         <?php
@@ -80,6 +93,8 @@ if (isset($_GET['pag'])) {
             require_once('painel/propositos/propositos.php');
         } else if ($pag == 'login') {
             require_once("painel/login.php");
+        } else if ($pag == 'logoff') {
+            LOGOFF();
         } else {
             require_once 'painel/home.php';
         }

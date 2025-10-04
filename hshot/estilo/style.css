@@ -86,10 +86,11 @@ body {
 }
 
 header {
-    background: linear-gradient(#005FB3, #0098B3);
+    background: linear-gradient(#0000009f, #0000009f);
     color: white;
     padding: 10px 0;
     text-align: center;
+    text-transform: uppercase;
 }
 
 header div.menu-header a {

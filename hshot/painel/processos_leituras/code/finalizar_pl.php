@@ -4,9 +4,7 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+$ident = AUTENT();
 
 $id = $_POST['id'] ?? '';
 $data_fim = $_POST['data_fim'] ?? '';
@@ -28,7 +26,7 @@ if ($status_pl == '') {
     exit;
 }
 // Verificar se o processo pertence ao usuário logado
-$sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id' AND IP_mem = '$_SESSION[IP_mem]'");
+$sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id' AND id_mem_pl = '$ident'");
 if ($sql->rowCount() == 0) {
     echo "Processo não encontrado ou você não tem permissão para finalizar.";
     exit;

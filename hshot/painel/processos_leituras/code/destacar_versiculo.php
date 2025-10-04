@@ -4,9 +4,7 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+$ident = AUTENT();
 
 $id = $_POST['id'] ?? '';
 $capitulo = $_POST['capitulo'] ?? '';
@@ -40,7 +38,7 @@ if ($desc_destacar == '') {
 }
 
 // Verificar se o processo de leitura existe
-$sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id' AND IP_mem = '$_SESSION[IP_mem]'");
+$sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_pl = '$id' AND id_mem_pl = '$ident'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) == 0) {
     echo "Erro: Processo de leitura não encontrado!";
@@ -48,12 +46,12 @@ if (count($res) == 0) {
 }
 
 // Inserir o versículo destacado na tabela de destaques
-$sql_insert = $pdo->prepare("INSERT INTO versiculos_destacados (id_pl, cap_vd, vers_cs, versiculo_ic, pensamento_ic, IP_mem_vd) VALUES (:id_pl, :capitulo, :versiculo, :versiculo_texto, :desc_destacar, :IP_mem_dv)");
+$sql_insert = $pdo->prepare("INSERT INTO versiculos_destacados (id_pl, cap_vd, vers_cs, versiculo_ic, pensamento_ic, id_mem_vd) VALUES (:id_pl, :capitulo, :versiculo, :versiculo_texto, :desc_destacar, :id_mem_dv)");
 $sql_insert->bindValue(':id_pl', $id);
 $sql_insert->bindValue(':capitulo', $capitulo);
 $sql_insert->bindValue(':versiculo', $versiculo);
 $sql_insert->bindValue(':versiculo_texto', $versiculo_texto);
 $sql_insert->bindValue(':desc_destacar', $desc_destacar);
-$sql_insert->bindValue(':IP_mem_dv', $_SESSION['IP_mem']);
+$sql_insert->bindValue(':id_mem_dv', $ident);
 $sql_insert->execute();
 echo "Versículo destacado com sucesso!";

@@ -6,10 +6,6 @@ require_once '../../db/autenticator.php';
 
 date_default_timezone_set('America/Sao_Paulo');
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
-
 $sql = $pdo->query("SELECT * FROM versiculo_do_dia;");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 $count = count($res);

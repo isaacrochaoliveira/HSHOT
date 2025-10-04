@@ -3,9 +3,6 @@ require_once 'db/connect.php';
 require_once 'db/autenticator.php';
 @session_start();
 
-if (!($_SESSION['IP_mem'])) {
-    echo "<script>href.location = 'home.php'</script>";
-}
 ?>
 <div class="">
     <h1 class="anton-regular">Criador de Próposito</h1>

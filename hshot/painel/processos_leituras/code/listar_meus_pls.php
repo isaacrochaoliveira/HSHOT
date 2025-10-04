@@ -4,14 +4,13 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+$ident = AUTENT();
+
 $pesp = $_POST['pesq'] ?? '';
 if ($pesp != '') {
-    $sql = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_mem]' AND (titulo_pl LIKE '%$pesp%' OR desc_pl LIKE '%$pesp%') ORDER BY id_pl DESC LIMIT 10");
+    $sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_mem_pl = '$ident' AND (titulo_pl LIKE '%$pesp%' OR desc_pl LIKE '%$pesp%') ORDER BY id_pl DESC LIMIT 10");
 } else {
-    $sql = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_mem]' ORDER BY id_pl DESC limit 10");
+    $sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_mem_pl = '$ident' ORDER BY id_pl DESC limit 10");
 }
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) == 0) {
@@ -53,7 +52,7 @@ if (count($res) == 0) {
                 $res_caps = $sql_caps->fetchAll(PDO::FETCH_ASSOC);
                 $total_caps = $res_caps[0]['quant_c'];
 
-                $sql_caps_lidos = $pdo->query("SELECT * FROM pl_inserircap WHERE id_pl = '$id_pl' AND id_l = '$id_l' AND IP_mem_ic = '$_SESSION[IP_mem]'");
+                $sql_caps_lidos = $pdo->query("SELECT * FROM pl_inserircap WHERE id_pl = '$id_pl' AND id_l = '$id_l' AND id_mem_ic = '$ident'");
                 $res_caps_lidos = $sql_caps_lidos->fetchAll(PDO::FETCH_ASSOC);
                 $caps_lidos = 0;
                 if (count($res_caps_lidos) > 0) {

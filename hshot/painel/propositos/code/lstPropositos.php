@@ -4,18 +4,16 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+$ident = AUTENT();
 
 if (isset($_POST)) {
     if (!isset($_POST['nome'])) {
-        $sql = $pdo->query("SELECT * FROM meus_propositos WHERE IP_mp = '$_SESSION[IP_mem]'");    
+        $sql = $pdo->query("SELECT * FROM meus_propositos WHERE id_mem_mp = '$ident'");    
     } else {
-        $sql = $pdo->query("SELECT * FROM meus_propositos WHERE nome_mp Like '%$_POST[nome]%' AND IP_mp = '$_SESSION[IP_mem]'");
+        $sql = $pdo->query("SELECT * FROM meus_propositos WHERE nome_mp Like '%$_POST[nome]%' AND id_mem_mp = '$ident'");
     }
 } else {
-    $sql = $pdo->query("SELECT * FROM meus_propositos WHERE IP_mp = '$_SESSION[IP_mem]'");
+    $sql = $pdo->query("SELECT * FROM meus_propositos WHERE id_mem_mp = '$ident'");
 }
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) == 0) {

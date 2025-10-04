@@ -1,6 +1,5 @@
 <?php
     require_once 'db/connect.php';  
-    require_once 'db/autenticator.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,7 +34,7 @@
             <p class="text-center arvo-regular">Organize e acompanhe sua leitura da Bíblia de forma eficiente.</p>
             <p class="arvo-regular text-center">(OBS) É importante que você acesse esse sistema de uma mesma rede, pois usamos seu endereço IP para autenticação.</p>
             <div class="d-flex justify-content-center">
-                <a href="home.php" class="me-2 btn-login">IR PARA PAINEL</a>
+                <a href="home.php?pag=login" class="me-2 btn-login">IR PARA PAINEL</a>
                 <a href="https://hshot.com.br" class="btn-signup">VOLTAR PARA O SITE</a>
             </div>
         </div>

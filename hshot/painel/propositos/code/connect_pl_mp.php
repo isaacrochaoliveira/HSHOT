@@ -4,9 +4,7 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+$ident = AUTENT();
 
 $id_pl = $_POST['id_pl'];
 $id_mp = $_POST['id_mp'];
@@ -24,5 +22,5 @@ if ($res[0]['id_pl_mp'] != "0") {
     exit();
 }
 
-$sql = $pdo->query("UPDATE meus_propositos SET id_pl_mp = '$id_pl' WHERE id_mp = '$id_mp' AND IP_mp = '$_SESSION[IP_mem]'");
+$sql = $pdo->query("UPDATE meus_propositos SET id_pl_mp = '$id_pl' WHERE id_mp = '$id_mp' AND id_mem_mp = '$ident'");
 echo "Sucesso";

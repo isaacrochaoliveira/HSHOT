@@ -4,29 +4,28 @@ require_once '../../db/connect.php';
 require_once '../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+$ident = AUTENT();
+
 $total_capitulos = 0;
 
-$sql = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_mem]'");
+$sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_mem_pl = '$ident'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 $id_pl = $res[0]['id_pl'];
 $total_processos = count($res);
 
-$sql_fin = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_mem]' AND status_pl = 'Finalizado'");
+$sql_fin = $pdo->query("SELECT * FROM processo_leitura WHERE id_mem_pl = '$ident' AND status_pl = 'Finalizado'");
 $res_fin = $sql_fin->fetchAll(PDO::FETCH_ASSOC);
 $total_processos_finalizados = count($res_fin);
 
-$sql_fin = $pdo->query("SELECT * FROM processo_leitura WHERE IP_mem = '$_SESSION[IP_mem]' AND status_pl = 'Aberto'");
+$sql_fin = $pdo->query("SELECT * FROM processo_leitura WHERE id_mem_pl = '$ident' AND status_pl = 'Aberto'");
 $res_fin = $sql_fin->fetchAll(PDO::FETCH_ASSOC);
 $total_processos_abertos = count($res_fin);
 
-$sql_ver = $pdo->query("SELECT * FROM versiculos_destacados WHERE IP_mem_vd = '$_SESSION[IP_mem]' AND id_pl = '$id_pl'");
+$sql_ver = $pdo->query("SELECT * FROM versiculos_destacados WHERE id_mem_vd = '$ident' AND id_pl = '$id_pl'");
 $res_ver = $sql_ver->fetchAll(PDO::FETCH_ASSOC);
 $versiculos_destacados = count($res_ver);
 
-$sql_cap = $pdo->query("SELECT * FROM pl_inserircap WHERE IP_mem_ic = '$_SESSION[IP_mem]' AND id_pl = '$id_pl'");
+$sql_cap = $pdo->query("SELECT * FROM pl_inserircap WHERE id_mem_ic = '$ident' AND id_pl = '$id_pl'");
 $res_cap = $sql_cap->fetchAll(PDO::FETCH_ASSOC);
 if (count($res_cap) > 0) {
     for ($c = 0; $c < count($res_cap); $c++) {

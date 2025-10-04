@@ -3,9 +3,8 @@
 require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
+
+$ident = AUTENT();
 
 $idLivro = $_POST['idLivro'];
 $id = $_POST['id'];
@@ -25,5 +24,5 @@ if (count($res) == 0) {
     exit();
 }
 
-$pdo->query("INSERT INTO pl_inserircap (id_l, id_pl, quant_ic, data_ic, IP_mem_ic) VALUES ('$idLivro', '$id', '$quant', '$data', '$_SESSION[IP_mem]')");
+$pdo->query("INSERT INTO pl_inserircap (id_l, id_pl, quant_ic, data_ic, id_mem_ic) VALUES ('$idLivro', '$id', '$quant', '$data', '$ident')");
 echo "Capítulos inseridos com sucesso";

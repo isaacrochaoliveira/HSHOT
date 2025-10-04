@@ -4,9 +4,6 @@ require_once 'db/connect.php';
 require_once 'db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
 ?>
     <button class="btn btn-warning my-2" id="vO">Ver Processsos de Leitura</button>
 <div class="d-flex flex-wrap">

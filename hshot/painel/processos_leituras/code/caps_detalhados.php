@@ -4,17 +4,14 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
-
+$ident = AUTENT();
 $id_PL = $_POST['id'];
 if ($id_PL == '') {
     echo "ID do processo não fornecido.";
     exit;
 }
 
-$sql = $pdo->query("SELECT * FROM pl_inserircap WHERE id_pl = '$id_PL' AND IP_mem_ic = '$_SESSION[IP_mem]'");
+$sql = $pdo->query("SELECT * FROM pl_inserircap WHERE id_pl = '$id_PL' AND id_mem_ic = '$ident'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) == 0) {
     echo "<p>Até o momento, não registramos inserção de capítulos</p>";

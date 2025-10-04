@@ -4,10 +4,6 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-if (!isset($_SESSION['IP_mem'])) {
-    echo "<script>window.location='../../index.php'</script>";
-}
-
 $id_mp = $_POST['id_mp'];
 
 $sql = $pdo->query("SELECT * FROM meus_propositos WHERE id_mp = '$id_mp'");
