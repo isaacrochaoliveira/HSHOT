@@ -4,10 +4,9 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-
-$nome_img = preg_replace('/[ -]+/' , '-' , @$_FILES['imagem']['name']);
-$caminho = '../../img/produtos/' .$nome_img;
-if (@$_FILES['imagem']['name'] == ""){
+$nome_img = preg_replace('/[ -]+/' , '-' , @$_FILES['imagem_comunidade']['name']);
+$caminho = URL . 'imagens/comunidades/';
+if (@$_FILES['imagem_comunidade']['name'] == ""){
   $imagem = "sem-foto.jpg";
 }else{
     $imagem = $nome_img;
