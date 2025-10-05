@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 03-Out-2025 às 23:26
+-- Tempo de geração: 05-Out-2025 às 20:12
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -24,26 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `membros`
+-- Estrutura da tabela `comunidades`
 --
 
-DROP TABLE IF EXISTS `membros`;
-CREATE TABLE IF NOT EXISTS `membros` (
-  `id_membro` int NOT NULL AUTO_INCREMENT,
-  `nome_membro` varchar(200) DEFAULT 'Novo Membro',
-  `nasc_membro` date DEFAULT NULL,
-  `email_mem` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `senha_mem` varchar(400) NOT NULL,
-  PRIMARY KEY (`id_membro`),
-  UNIQUE KEY `email_membro` (`email_mem`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS `comunidades`;
+CREATE TABLE IF NOT EXISTS `comunidades` (
+  `id_com` int NOT NULL AUTO_INCREMENT,
+  `nome_com` varchar(200) DEFAULT NULL,
+  `desc_com` text,
+  `dataCriacao_com` date DEFAULT NULL,
+  `imagem_com` varchar(200) DEFAULT 'versiculo-do-dia.jpg',
+  `status_com` enum('Ativo','Inativo') DEFAULT 'Inativo',
+  `regras_com` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_com`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Extraindo dados da tabela `membros`
+-- Extraindo dados da tabela `comunidades`
 --
 
-INSERT INTO `membros` (`id_membro`, `nome_membro`, `nasc_membro`, `email_mem`, `senha_mem`) VALUES
-(1, 'Novo Membro', NULL, 'prog.isaac137@gmail.com', '$2y$10$qVmBoXCrrX78xRogG9tXmeb.l.LcWeq9tc3PhhZa92lv8LqrDnMTC');
+INSERT INTO `comunidades` (`id_com`, `nome_com`, `desc_com`, `dataCriacao_com`, `imagem_com`, `status_com`, `regras_com`) VALUES
+(1, '1 Comunidade', 'Olá, Mundo!', '2025-10-05', 'HS.png', 'Inativo', NULL),
+(2, '1 Comunidade', 'Olá, Mundo!', '2025-10-05', 'HS.png', 'Inativo', NULL),
+(3, '1 Comunidade', 'Olá, Mundo!', '2025-10-05', 'HS.png', 'Inativo', NULL),
+(4, '1 Comunidade', 'Olá, Mundo!', '2025-10-05', 'HS.png', 'Inativo', NULL),
+(5, '1 Comunidade', 'Olá, Mundo!', '2025-10-05', 'HS.png', 'Inativo', NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

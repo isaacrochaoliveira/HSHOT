@@ -17,10 +17,9 @@ if (count($res) > 0) {
         $dataCriaçao_com = $res[$i]['dataCriacao_com'];
         $imagem_com = $res[$i]['imagem_com'];
 
-
 ?>
         <div class="col-md-6">
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card mb-3" style="max-width: 440px;">
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="..." class="img-fluid rounded-start" alt="...">
