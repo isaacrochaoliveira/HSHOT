@@ -50,37 +50,49 @@ if (isset($_GET['pag'])) {
 </head>
 
 <body>
-    <header class="py-3 mb-4 border-bottom">
-        <?php 
-            if (AUTENT()) {
-                ?>
-                <nav class="py-2">
-                    <div class="container d-flex flex-wrap">
-                        <ul class="nav me-auto text-white">
-                            <li class="nav-item"><a href="home.php" class="nav-link text-white px-2 active" aria-current="page">Painel <i class="fa-solid fa-chart-line"></i></a></li>
-                            <li class="nav-item"><a href="home.php?pag=leitura" class="nav-link text-white px-2">Leitura <i class="fa-solid fa-book-bible"></i></a></li>
-                            <li class="nav-item"><a href="home.php?pag=propositos" class="nav-link text-white px-2">Propósitos <i class="fa-solid fa-person-praying"></i></a></li>
-                            <li class="nav-item"><a href="#" class="nav-link text-white px-2">FAQs</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil <i class="fa-regular fa-user"></i></a></li>
-                        </ul>
-                        <ul class="nav">
-                            <?php
-                            if (AUTENT()) {
-                            ?>
-                                <li class="nav-item"><a href="http://localhost/HSHOT/hshot/home.php?pag=logoff" class="btn btn-danger px-2">SAIR/LOGOFF <i class="fa-solid fa-right-from-bracket"></i></a></li>
-                            <?php
-                            } else {
-                            ?>
-                                <li class="nav-item"><a href="home.php?pag=login" class="nav-link text-white px-2">Login/Registro</a></li>
+    <?php
+    if (AUTENT()) {
+    ?>
+        <div style="background-color: #ccc">
+            <div class="container text-center py-2">
+                <p class="arvo-regular-italic f-20"><i class="fa-regular fa-user"></i> <?php print_r($_SESSION['usuario']['nome_membro']) ?></p>
+            </div>
+        </div>
 
-                            <?php
-                            }
-                            ?>
-                        </ul>
-                    </div>
-                </nav>
-                <?php
-            }
+    <?php
+    }
+    ?>
+    <header class="py-3 mb-4 border-bottom">
+        <?php
+        if (AUTENT()) {
+        ?>
+            <nav class="py-2">
+                <div class="container d-flex flex-wrap">
+                    <ul class="nav me-auto text-white">
+                        <li class="nav-item"><a href="home.php" class="nav-link text-white px-2 active" aria-current="page">Painel <i class="fa-solid fa-chart-line"></i></a></li>
+                        <li class="nav-item"><a href="home.php?pag=leitura" class="nav-link text-white px-2">Leitura <i class="fa-solid fa-book-bible"></i></a></li>
+                        <li class="nav-item"><a href="home.php?pag=propositos" class="nav-link text-white px-2">Propósitos <i class="fa-solid fa-person-praying"></i></a></li>
+                        <li class="nav-item"><a href="home.php?pag=comunidade" class="nav-link text-white px-2">Comunidades <i class="fa-solid fa-globe"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil <i class="fa-regular fa-user"></i></a></li>
+                    </ul>
+                    <ul class="nav">
+                        <?php
+                        if (AUTENT()) {
+                        ?>
+                            <li class="nav-item"><a href="http://localhost/HSHOT/hshot/home.php?pag=logoff" class="btn btn-danger px-2">SAIR/LOGOFF <i class="fa-solid fa-right-from-bracket"></i></a></li>
+                        <?php
+                        } else {
+                        ?>
+                            <li class="nav-item"><a href="home.php?pag=login" class="nav-link text-white px-2">Login/Registro</a></li>
+
+                        <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </nav>
+        <?php
+        }
         ?>
     </header>
     <section class="p-3">
@@ -95,6 +107,8 @@ if (isset($_GET['pag'])) {
             require_once("painel/login.php");
         } else if ($pag == 'logoff') {
             LOGOFF();
+        } else if ($pag == 'comunidade') {
+            require_once('painel/comunidade/comunidade.php');
         } else {
             require_once 'painel/home.php';
         }

@@ -10,7 +10,7 @@ $total_capitulos = 0;
 
 $sql = $pdo->query("SELECT * FROM processo_leitura WHERE id_mem_pl = '$ident'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
-$id_pl = $res[0]['id_pl'];
+$id_pl = $res[0]['id_pl'] ?? 0;
 $total_processos = count($res);
 
 $sql_fin = $pdo->query("SELECT * FROM processo_leitura WHERE id_mem_pl = '$ident' AND status_pl = 'Finalizado'");

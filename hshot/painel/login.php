@@ -77,24 +77,16 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Redigite a senha" id="resenha_mem">
+                    <input type="password" class="form-control" placeholder="Redigite a senha" id="resenha_mem" oninput="response()">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
                         </div>
                     </div>
                 </div>
+                <p class="fs-20 arvo-regular text-danger alert-msg"></p>
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                            <label for="agreeTerms">
-                                I agree to the <a href="#">terms</a>
-                            </label>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-4">
+                    <div class="col">
                         <button type="submit" class="btn btn-primary btn-block disabled" id="btnRegister">Register</button>
                     </div>
                     <!-- /.col -->
@@ -131,23 +123,40 @@
 
 <script>
     $(document).ready(function() {
-        $('#agreeTerms').click(function (){
-            if (document.getElementById('agreeTerms').checked) {
-                $('#btnRegister').removeClass('disabled');
-            } else {
-                $('#btnRegister').addClass('disabled');
-            }
+        $("#btnRegister").click(function() {
+            var nome = $("#nome_mem").val();
+            var email = $("#email_mem").val();
+            var senha = $("#resenha_mem").val();
+            $.ajax({
+                url: 'painel/code/register.php',
+                method: 'post',
+                data: {
+                    nome: nome,
+                    email: email,
+                    senha: senha
+                },
+                success: function(response) {
+                    $('.mensagem').text(response);
+                    $("#modalResponse").modal('show')
+                }
+            })
         })
     })
 </script>
 
 <script>
-    $(document).ready(function() {
-        $("#btnRegister").click(function() {
-            var nome = $("#nome_mem").val();
-            var email = $("#email_mem").val();
-            var senha = $("#senha").val();
-            
-        })
-    })
+    function response() {
+        var senha = $("#senha_mem").val();
+        var resenha = $('#resenha_mem').val();
+
+
+        if (senha != resenha) {
+            $('.alert-msg').text("As Senha não são iguais!");
+            $('#btnRegister').addClass('disabled');
+        } else {
+            $('.alert-msg').text("");
+            $('#btnRegister').removeClass('disabled');
+        }
+
+    }
 </script>
