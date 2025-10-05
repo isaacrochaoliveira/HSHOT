@@ -13,7 +13,7 @@ if (count($res) > 0) {
     for ($i = 0; $i < count($res); $i++) {
         $rule = $res[$i]['regra_rc'];
         ?>
-            <div class="col-md-6 rule my-2">
+            <div class="col-md-5 rule my-2">
                 <p><?php echo $rule?></p>
             </div>
             <?php
