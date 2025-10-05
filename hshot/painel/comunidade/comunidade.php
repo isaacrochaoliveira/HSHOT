@@ -11,7 +11,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="form-floating">
-                                    <input type="text" id="nome_com" placeholder="Nome da Comunidade..." class="form-control">
+                                    <input type="text" id="nome_com" name="nome_com" placeholder="Nome da Comunidade..." class="form-control">
                                     <label for="nome_com">Nome da Comunidade</label>
                                 </div>
                             </div>
@@ -19,7 +19,7 @@
                         <div class="col-md-12 mt-3">
                             <div class="form-group">
                                 <div class="form-floating">
-                                    <textarea cols="10" rows="10" class="form-control" placeholder="Descrição..." id="desc_com"></textarea>
+                                    <textarea cols="10" rows="10" class="form-control" placeholder="Descrição..." id="desc_com" name="desc_com"></textarea>
                                     <label for="desc_com">Descrição da Comunidade</label>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnCriarComunidadeEnd">Fechar</button>
                     <button type="submit" class="btn btn-primary" id="btnCComunidade">Criar</button>
                     <button class="btn btn-primary d-none spinner-criar" type="button" disabled>
                         <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -68,7 +68,16 @@ require_once 'db/autenticator.php';
         </div>
     </div>
     <hr>
+    <div class="listarComunidades">
+
+    </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        readingComunidades();
+    })
+</script>
 
 <script>
     $(document).ready(function() {
@@ -106,34 +115,6 @@ require_once 'db/autenticator.php';
     }
 </script>
 
-<!-- <script>
-    $(document).ready(function() {
-        $("#btnCComunidade").click(function() {
-            var nome = $('#nome_com').val();
-            var desc = $('#desc_com').val();
-            $.ajax({
-                beforeSend: function() {
-                    $('#btnCComunidade').addClass('d-none');
-                    $('.spinner-criar').removeClass('d-none');
-                    setInterval(function() {
-                        $.ajax({
-                            url: 'painel/comunidade/code/criarComunidade.php',
-                            method: 'post',
-                            data: {
-                                nome: nome,
-                                desc: desc
-                            },
-                            success: function(response) {
-                                alert(response);
-                            }
-                        })
-                    }, 5000)
-                }
-            })
-        })
-    })
-</script> -->
-
 <script type="text/javascript">
     $("#form_comunidade").submit(function() {
         var pag = "<?= $pag ?>";
@@ -150,7 +131,8 @@ require_once 'db/autenticator.php';
                         type: 'POST',
                         data: formData,
                         success: function(mensagem) {
-                            alert(mensagem);
+                            $("#btnCriarComunidadeEnd").click()
+                            readingComunidades();
                         },
                         cache: false,
                         contentType: false,
@@ -169,4 +151,26 @@ require_once 'db/autenticator.php';
             }
         })
     });
+</script>
+
+<script>
+    function readingComunidades() {
+        $(document).ready(function() {
+            $.ajax({
+                beforeSend: function() {
+                    $('.listarComunidades').html('<p class="arvo-regular f-20">Carregando Informações... <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></p>')
+                    setInterval(function() {
+                        $.ajax({
+                            url: 'painel/comunidade/code/lstComunidades.php',
+                            method: 'post',
+                            data: {},
+                            success: function(response) {
+                                $('.listarComunidades').html(response);
+                            }
+                        })
+                    }, 3000)
+                }
+            })
+        })
+    }
 </script>
