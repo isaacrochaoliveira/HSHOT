@@ -131,7 +131,7 @@ require_once 'db/autenticator.php';
                         type: 'POST',
                         data: formData,
                         success: function(mensagem) {
-                            $("#btnCriarComunidadeEnd").click()
+                            $("#btnCriarComunidadeEnd").click();
                             readingComunidades();
                         },
                         cache: false,
@@ -157,20 +157,13 @@ require_once 'db/autenticator.php';
     function readingComunidades() {
         $(document).ready(function() {
             $.ajax({
-                beforeSend: function() {
-                    $('.listarComunidades').html('<p class="arvo-regular f-20">Carregando Informações... <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></p>')
-                    setInterval(function() {
-                        $.ajax({
-                            url: 'painel/comunidade/code/lstComunidades.php',
-                            method: 'post',
-                            data: {},
-                            success: function(response) {
-                                $('.listarComunidades').html(response);
-                            }
-                        })
-                    }, 3000)
+                url: 'painel/comunidade/code/lstComunidades.php',
+                method: 'post',
+                data: {},
+                success: function(response) {
+                    $('.listarComunidades').html(response);
                 }
             })
-        })
+        });
     }
 </script>
