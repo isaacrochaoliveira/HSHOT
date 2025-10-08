@@ -4,6 +4,7 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
+$id_membro = $_SESSION['usuario']['id_membro'];
 $nome = $_POST['nome_com'];
 $desc = $_POST['desc_com'];
 $hoje = date('Y-m-d');
@@ -30,5 +31,5 @@ if (empty($nome)) {
     exit();
 }
 
-$pdo->query("INSERT INTO comunidades SET nome_com = '$nome', desc_com = '$desc', dataCriacao_com = '$hoje', imagem_com = '$imagem'");
+$pdo->query("INSERT INTO comunidades SET id_mem = '$id_membro', nome_com = '$nome', desc_com = '$desc', dataCriacao_com = '$hoje', imagem_com = '$imagem'");
 echo "Sucesso!";

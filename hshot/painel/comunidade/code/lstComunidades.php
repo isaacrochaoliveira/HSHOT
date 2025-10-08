@@ -4,12 +4,13 @@ require_once '../../../db/connect.php';
 require_once '../../../db/autenticator.php';
 @session_start();
 
-$sql = $pdo->query("SELECT * FROM comunidades;");
+$id_membro = $_SESSION['usuario']['id_membro'];
+
+$sql = $pdo->query("SELECT * FROM comunidades WHERE id_mem = '$id_membro';");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) > 0) {
 ?>
     <div class="d-flex flex-wrap">
-
         <?php
         for ($i = 0; $i < count($res); $i++) {
             $nome_com = $res[$i]['nome_com'];
