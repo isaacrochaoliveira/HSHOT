@@ -168,3 +168,13 @@ require_once 'db/autenticator.php';
         });
     }
 </script>
+
+<script>
+    function ativarComunidade(id_com) {
+        $(document).ready(function() {
+            $.ajax({
+                url:>
+            })
+        })
+    }
+</script>
