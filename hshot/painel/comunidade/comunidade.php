@@ -131,8 +131,9 @@ require_once 'db/autenticator.php';
                         type: 'POST',
                         data: formData,
                         success: function(mensagem) {
-                            $("#btnCriarComunidadeEnd").click();
-                            readingComunidades();
+                            alert(mensagem);
+                            // $("#btnCriarComunidadeEnd").click();
+                            // readingComunidades();
                         },
                         cache: false,
                         contentType: false,

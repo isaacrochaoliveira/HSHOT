@@ -9,14 +9,14 @@ $desc = $_POST['desc_com'];
 $hoje = date('Y-m-d');
 
 $nome_img = preg_replace('/[ -]+/', '-', @$_FILES['imagem_comunidade']['name']);
-$caminho = '../../../imagens/comunidades/' . $nome_img;
+$caminho = '../../../../imagens/comunidades/' . $nome_img;
 if (@$_FILES['imagem_comunidade']['name'] == "") {
     $imagem = "versiculo-do-dia.jpg";
 } else {
     $imagem = $nome_img;
 }
 
-$imagem_temp = @$_FILES['imagem']['tmp_name'];
+$imagem_temp = @$_FILES['imagem_comunidade']['tmp_name'];
 $ext = pathinfo($imagem, PATHINFO_EXTENSION);
 if ($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif') {
     move_uploaded_file($imagem_temp, $caminho);
