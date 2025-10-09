@@ -73,6 +73,25 @@ require_once 'db/autenticator.php';
     </div>
 </div>
 
+<div class="modal fade" id="ModalMSG" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 anton-regular" id="exampleModalLabel">Mensagem:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="msg-from-system">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function() {
         readingComunidades();
@@ -173,7 +192,16 @@ require_once 'db/autenticator.php';
     function ativarComunidade(id_com) {
         $(document).ready(function() {
             $.ajax({
-                url:>
+                url: 'painel/comunidade/code/ativarComunidade.php',
+                method: 'post',
+                data: {
+                    id: id_com
+                },
+                success: function(response) {
+                    $('#ModalMSG').modal('show');
+                    $('.msg-from-system').text(response);
+                    readingComunidades();
+                }
             })
         })
     }

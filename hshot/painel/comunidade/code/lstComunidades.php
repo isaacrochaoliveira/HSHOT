@@ -21,20 +21,16 @@ if (count($res) > 0) {
             $imagem_com = $res[$i]['imagem_com'];
 
             if ($status_com == 'Inativo') {
-                $border_color = 'red';
+                $border_color = '#ff0000';
+                $toggle_onoff = 'fa-solid fa-toggle-on text-success';
             } else {
-                $border_color = 'blue';
+                $border_color = '#0B5ED7';
+                $toggle_onoff = 'fa-solid fa-toggle-off text-danger';
             }
 
         ?>
             <div class="col-md-6">
-                <div class="card mb-3" style="max-width: 540px; border-right: 5px solid <?php $border_color ?>">
-                    <div class="d-flex flex-wrap align-item-center">
-                        <div class="f-24 text-success">
-                            <a href="#" class="f-24 text-success" onclick="ativarComunidade(<?php echo $id_com ?>)"><i class="fa-solid fa-toggle-on"></i></a>
-                        </div>
-                    </div>
-                    <hr>
+                <div class="card mb-3" style="max-width: 540px; border-right: 5px solid <?php echo $border_color ?>">
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img src="<?php echo URL . 'imagens/comunidades/' . $imagem_com?>" class="img-fluid rounded-start" alt="...">
@@ -44,6 +40,12 @@ if (count($res) > 0) {
                                 <h5 class="card-title"><?php echo $nome_com?></h5><br>
                                 <p class="card-text"><?php echo $desc_com?></p>
                                 <p class="card-text"><small class="text-body-secondary"></small></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-wrap align-items-center justify-content-center">
+                            <div class="my-auto">
+                                <a href="#" class="" onclick="ativarComunidade(<?php echo $id_com ?>)"><i class="<?php echo $toggle_onoff ?> f-24"></i> Ligar/Desligar</a>
                             </div>
                         </div>
                     </div>
