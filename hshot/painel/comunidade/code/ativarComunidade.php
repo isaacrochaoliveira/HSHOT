@@ -13,5 +13,8 @@ if (count($res) > 0) {
     if ($res[0]['status_com'] == 'Inativo') {
         $pdo->query("UPDATE comunidades SET status_com = 'Ativo' WHERE id_com = '$id' AND id_mem = '$id_membro'");
         echo "Comunidade Ativada com Sucesso!";
+    } else {
+        $pdo->query("UPDATE comunidades SET status_com = 'Inativo' WHERE id_com = '$id' AND id_mem = '$id_membro'");
+        echo "Comunidade Ativada com Sucesso!";
     }
 }
