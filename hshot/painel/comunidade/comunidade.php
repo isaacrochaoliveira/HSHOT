@@ -206,3 +206,22 @@ require_once 'db/autenticator.php';
         })
     }
 </script>
+
+<script>
+    function eliminar(id_com) {
+        $(document).ready(function() {
+            $.ajax({
+                url: 'painel/comunidade/code/eliminar.php',
+                method: 'post',
+                data: {
+                    id: id_com
+                },
+                success: function(response) {
+                    $('#ModalMSG').modal('show');
+                    $('.msg-from-system').text(response);
+                    readingComunidades();
+                }
+            })
+        });
+    }
+</script>

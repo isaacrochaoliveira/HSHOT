@@ -22,10 +22,10 @@ if (count($res) > 0) {
 
             if ($status_com == 'Inativo') {
                 $border_color = '#ff0000';
-                $toggle_onoff = 'fa-solid fa-toggle-on text-danger';
+                $toggle_onoff = 'fa-solid fa-toggle-off text-danger';
             } else {
                 $border_color = '#0B5ED7';
-                $toggle_onoff = 'fa-solid fa-toggle-off text-primary';
+                $toggle_onoff = 'fa-solid fa-toggle-on text-primary';
             }
 
         ?>
@@ -46,6 +46,7 @@ if (count($res) > 0) {
                         <div class="d-flex flex-wrap align-items-center justify-content-center">
                             <div class="my-auto">
                                 <a href="#" class="text-decoration-none" style="color: <?php echo $border_color ?>;" onclick="ativarComunidade(<?php echo $id_com ?>)"><i class="<?php echo $toggle_onoff ?> f-24"></i> Ligar/Desligar</a>
+                                <a href="#" class="text-decoration-none text-danger" onclick="eliminar(<?php echo $id_com ?>)"><i class="fa-solid fa-xmark f-24"></i> Eliminar</a>
                             </div>
                         </div>
                     </div>
