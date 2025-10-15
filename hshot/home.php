@@ -109,6 +109,8 @@ if (isset($_GET['pag'])) {
             LOGOFF();
         } else if ($pag == 'comunidade') {
             require_once('painel/comunidade/comunidade.php');
+        } else if ($pag == 'minhas-comunidades') {
+            require_once('painel/comunidade/minhas-comunidades.php');
         } else {
             require_once 'painel/home.php';
         }

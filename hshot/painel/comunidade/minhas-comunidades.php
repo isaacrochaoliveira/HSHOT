@@ -1,3 +1,20 @@
+<div class="modal fade" id="LinksModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title anton-regular fs-5" id="exampleModalLabel">Cadastro de Comunidade</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <input type="text" name="id_comLinks" id="id_comLinks">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="subirComunidade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -100,8 +117,82 @@ require_once 'db/autenticator.php';
 </script>
 
 <script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'painel/comunidade/code/rules.php',
+            method: 'post',
+            data: {},
+            success: function(response) {
+                $(".rules").html(response);
+            }
+        })
+    })
+</script>
+
+<script>
+    function carregarImg() {
+        var target = document.getElementById('target');
+        var file = document.querySelector("#imagem_comunidade").files[0];
+
+        var arquivo = file['name'];
+        resultado = arquivo.split(".", 2);
+
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+        } else {
+            target.src = "";
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    $("#form_comunidade").submit(function() {
+        var pag = "<?= $pag ?>";
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            beforeSend: function() {
+                $('#btnCComunidade').addClass('d-none');
+                $('.spinner-criar').removeClass('d-none');
+                setInterval(function() {
+                    $.ajax({
+                        url: 'painel/comunidade/code/criarComunidade.php',
+                        type: 'POST',
+                        data: formData,
+                        success: function(mensagem) {
+                            $("#btnCriarComunidadeEnd").click();
+                            readingComunidades();
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        xhr: function() { // Custom XMLHttpRequest
+                            var myXhr = $.ajaxSettings.xhr();
+                            if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                                myXhr.upload.addEventListener('progress', function() {
+                                    /* faz alguma coisa durante o progresso do upload */
+                                }, false);
+                            }
+                            return myXhr;
+                        }
+                    });
+                }, 5000)
+            }
+        })
+    });
+</script>
+
+<script>
     function readingComunidades() {
-        var pag = "<?php echo $_GET['pag'];?>"
+        var pag = "<?php echo $_GET['pag'] ?>"
         $(document).ready(function() {
             $.ajax({
                 url: 'painel/comunidade/code/lstComunidades.php',
@@ -111,6 +202,44 @@ require_once 'db/autenticator.php';
                 },
                 success: function(response) {
                     $('.listarComunidades').html(response);
+                }
+            })
+        });
+    }
+</script>
+
+<script>
+    function ativarComunidade(id_com) {
+        $(document).ready(function() {
+            $.ajax({
+                url: 'painel/comunidade/code/ativarComunidade.php',
+                method: 'post',
+                data: {
+                    id: id_com
+                },
+                success: function(response) {
+                    $('#ModalMSG').modal('show');
+                    $('.msg-from-system').text(response);
+                    readingComunidades();
+                }
+            })
+        })
+    }
+</script>
+
+<script>
+    function eliminar(id_com) {
+        $(document).ready(function() {
+            $.ajax({
+                url: 'painel/comunidade/code/eliminar.php',
+                method: 'post',
+                data: {
+                    id: id_com
+                },
+                success: function(response) {
+                    $('#ModalMSG').modal('show');
+                    $('.msg-from-system').text(response);
+                    readingComunidades();
                 }
             })
         });

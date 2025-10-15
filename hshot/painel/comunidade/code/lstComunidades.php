@@ -5,8 +5,13 @@ require_once '../../../db/autenticator.php';
 @session_start();
 
 $id_membro = $_SESSION['usuario']['id_membro'];
+$pag = $_POST['pag'];
 
-$sql = $pdo->query("SELECT * FROM comunidades WHERE id_mem = '$id_membro';");
+if ($pag == 'minhas-comunidades') {
+    $sql = $pdo->query("SELECT * FROM comunidades WHERE id_mem = '$id_membro';");
+} else {
+    $sql = $pdo->query("SELECT * FROM comunidades WHERE id_mem != '$id_membro';");
+}
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) > 0) {
 ?>
@@ -14,6 +19,7 @@ if (count($res) > 0) {
         <?php
         for ($i = 0; $i < count($res); $i++) {
             $id_com = $res[$i]['id_com'];
+            $id_mem = $res[$i]['id_mem'];
             $nome_com = $res[$i]['nome_com'];
             $desc_com  = $res[$i]['desc_com'];
             $status_com = $res[$i]['status_com'];
@@ -33,22 +39,29 @@ if (count($res) > 0) {
                 <div class="card mb-3" style="max-width: 540px; border-right: 5px solid <?php echo $border_color ?>">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="<?php echo URL . 'imagens/comunidades/' . $imagem_com?>" class="img-fluid rounded-start" alt="...">
+                            <img src="<?php echo URL . 'imagens/comunidades/' . $imagem_com ?>" class="img-fluid rounded-start" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $nome_com?></h5><br>
-                                <p class="card-text"><?php echo $desc_com?></p>
+                                <h5 class="card-title"><?php echo $nome_com ?></h5><br>
+                                <p class="card-text"><?php echo $desc_com ?></p>
                                 <p class="card-text"><small class="text-body-secondary"></small></p>
                             </div>
                         </div>
-                        <hr>
-                        <div class="d-flex flex-wrap align-items-center justify-content-center">
-                            <div class="my-auto">
-                                <a href="#" class="text-decoration-none" style="color: <?php echo $border_color ?>;" onclick="ativarComunidade(<?php echo $id_com ?>)"><i class="<?php echo $toggle_onoff ?> f-24"></i> Ligar/Desligar</a>
-                                <a href="#" class="text-decoration-none text-danger" onclick="eliminar(<?php echo $id_com ?>)"><i class="fa-solid fa-xmark f-24"></i> Eliminar</a>
+                        <?php
+                        if ($pag == 'minhas-comunidades') {
+                            ?>
+                            <hr>
+                            <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                <div class="my-auto">
+                                    <a href="#" class="text-decoration-none" style="color: <?php echo $border_color ?>;" onclick="ativarComunidade(<?php echo $id_com ?>)"><i class="<?php echo $toggle_onoff ?> f-24"></i> Ligar/Desligar</a>
+                                    <a href="#" class="text-decoration-none text-danger" onclick="eliminar(<?php echo $id_com ?>)"><i class="fa-solid fa-xmark f-24"></i> Eliminar</a>
+                                    <a href="#" class="text-decoration-none text-primary" onclick="$('#LinksModal').modal('show'); $('#id_comLinks').val(<?php echo $id_com ?>)"><i class="fa-solid fa-link f-24"></i> Configurar Links</a>
+                                </div>
                             </div>
-                        </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
