@@ -1,15 +1,46 @@
 <div class="modal fade" id="LinksModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title anton-regular fs-5" id="exampleModalLabel">Cadastro de Comunidade</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
+                <div class="form-group">
+                    <div class="form-floating">
+                        <input type="text" placeholder="Link WhatsApp" class="form-control" id="what_link">
+                        <label for="what_link">Grupo do WhatsApp</label>
+                    </div>
+                </div>
+                <div class="form-group my-2">
+                    <div class="form-floating">
+                        <input type="text" placeholder="Link Instagram" class="form-control" id="insta_link">
+                        <label for="insta_link">Instagram</label>
+                    </div>
+                </div>
+                <div class="form-group my-2">
+                    <div class="form-floating">
+                        <input type="text" placeholder="Link Facebook" class="form-control" id="face_link">
+                        <label for="face_link">Facebook</label>
+                    </div>
+                </div>
+                <div class="form-group my-2">
+                    <div class="form-floating">
+                        <input type="text" placeholder="Discord" id="discord_link" class="form-control">
+                        <label for="discord_link">Discord</label>
+                    </div>
+                </div>
+                <div class="form-group my-2">
+                    <div class="form-floating">
+                        <input type="text" placeholder="Reddit" id="reddit_link" class="form-control">
+                        <label for="reddit_link">Reddit</label>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <input type="text" name="id_comLinks" id="id_comLinks">
+                <button class="btn btn-danger" data-bs-dismiss="modal">Fechar <i class="fa-solid fa-xmark"></i></button>
+                <button class="btn btn-success" id="ProcessLinks">Concluir <i class="fa-solid fa-check"></i></button>
+                <input type="text" name="id_comLinks" id="id_comLinks" hidden>
             </div>
         </div>
     </div>
@@ -244,4 +275,10 @@ require_once 'db/autenticator.php';
             })
         });
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#')
+    })
 </script>
