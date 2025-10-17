@@ -1,8 +1,3 @@
-<?php
-require_once '../../../db/connect.php';
-require_once '../../../db/autenticator.php';
-@session_start();
-?>
 <div class="modal fade" id="LinksModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -317,13 +312,26 @@ require_once 'db/autenticator.php';
     function LinksModal(id) {
         $(document).ready(function() {
             $.ajax({
-                url: 'paienl/comunidade/code/getLinks.php',
+                url: 'painel/comunidade/code/getLinks.php',
                 method:'post',
                 data: {
                     id: id
                 },
                 success: function(response) {
-                    
+                    var response = response.split(';')
+                    if (response[0] == 'Datas') {
+                        $('#what_link').val(response[1]);
+                        $('#insta_link').val(response[2]);
+                        $('#face_link').val(response[3]);
+                        $('#discord_link').val(response[4]);
+                        $('#reddit_link').val(response[5]);
+                        $('#id_comLinks').val(id);
+                        $('#LinksModal').modal('show');
+                    } else {
+                        $('#ModalMSG').modal('show');
+                        $('.msg-from-system').text(response[1]);
+                        readingComunidades();
+                    }
                 }
             })
         })

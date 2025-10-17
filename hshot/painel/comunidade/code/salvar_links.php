@@ -20,8 +20,15 @@ if (count($res) > 0) {
         echo "Comunidade Ativa! Não havendo a possíbilidade de edição!";
         exit();
     } else {
-        $pdo->query("INSERT INTO redessociascom SET id_com = '$id', what_link = '$what_link', insta_link = '$insta_link', face_link = '$face_link', discord_link = '$discord_link', reddit_link = '$reddit_link'");
-        echo "Links inseridos com Sucesso!";
+        $sql = $pdo->query("SELECT * FROM redessociascom WHERE id_com = '$id'");
+        $res = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if (count($res) > 0) {
+            $pdo->query("INSERT INTO redessociascom SET id_com = '$id', what_link = '$what_link', insta_link = '$insta_link', face_link = '$face_link', discord_link = '$discord_link', reddit_link = '$reddit_link'");
+            echo "Links Atualizados com Sucesso!";
+        } else {
+            $pdo->query("INSERT INTO redessociascom SET id_com = '$id', what_link = '$what_link', insta_link = '$insta_link', face_link = '$face_link', discord_link = '$discord_link', reddit_link = '$reddit_link'");
+            echo "Links inseridos com Sucesso!";
+        }
         exit();
     }
 } else {
