@@ -1,3 +1,8 @@
+<?php
+require_once '../../../db/connect.php';
+require_once '../../../db/autenticator.php';
+@session_start();
+?>
 <div class="modal fade" id="LinksModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -279,6 +284,31 @@ require_once 'db/autenticator.php';
 
 <script>
     $(document).ready(function() {
-        $('#')
+        $('#ProcessLinks').click(function() {
+            var what_link = $('#what_link').val();
+            var insta_link = $('#insta_link').val();
+            var face_link = $('#face_link').val();
+            var discord_link = $('#discord_link').val();
+            var reddit_link = $('#reddit_link').val();
+            var id = $('#id_comLinks').val();
+            $.ajax({
+                url: 'painel/comunidade/code/salvar_links.php',
+                method: 'post',
+                data: {
+                    what_link:what_link,
+                    insta_link: insta_link,
+                    face_link:face_link,
+                    discord_link:discord_link,
+                    reddit_link:reddit_link,
+                    id: id
+                },
+                success: function(response) {
+                    $('#LinksModal').modal('hide');
+                    $('#ModalMSG').modal('show');
+                    $('.msg-from-system').text(response);
+                    readingComunidades();
+                }
+            })
+        })
     })
 </script>
