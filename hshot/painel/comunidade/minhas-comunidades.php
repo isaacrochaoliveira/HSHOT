@@ -312,3 +312,20 @@ require_once 'db/autenticator.php';
         })
     })
 </script>
+
+<script>
+    function LinksModal(id) {
+        $(document).ready(function() {
+            $.ajax({
+                url: 'paienl/comunidade/code/getLinks.php',
+                method:'post',
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    
+                }
+            })
+        })
+    }
+</script>
