@@ -4,6 +4,8 @@ require_once 'db/autenticator.php';
 require_once 'db/logoff.php';
 @session_start();
 
+date_default_timezone_set('America/Sao_Paulo');
+
 $pag = "";
 
 if (isset($_GET['pag'])) {
@@ -111,6 +113,8 @@ if (isset($_GET['pag'])) {
             require_once('painel/comunidade/comunidade.php');
         } else if ($pag == 'minhas-comunidades') {
             require_once('painel/comunidade/minhas-comunidades.php');
+        } else if ($pag == 'feed') {
+            require_once('painel/feed/feed.php');
         } else {
             require_once 'painel/home.php';
         }

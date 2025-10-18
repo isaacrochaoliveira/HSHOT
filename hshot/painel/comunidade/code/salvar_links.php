@@ -23,7 +23,7 @@ if (count($res) > 0) {
         $sql = $pdo->query("SELECT * FROM redessociascom WHERE id_com = '$id'");
         $res = $sql->fetchAll(PDO::FETCH_ASSOC);
         if (count($res) > 0) {
-            $pdo->query("INSERT INTO redessociascom SET id_com = '$id', what_link = '$what_link', insta_link = '$insta_link', face_link = '$face_link', discord_link = '$discord_link', reddit_link = '$reddit_link'");
+            $pdo->query("UPDATE redessociascom SET id_com = '$id', what_link = '$what_link', insta_link = '$insta_link', face_link = '$face_link', discord_link = '$discord_link', reddit_link = '$reddit_link' WHERE id_com = '$id'");
             echo "Links Atualizados com Sucesso!";
         } else {
             $pdo->query("INSERT INTO redessociascom SET id_com = '$id', what_link = '$what_link', insta_link = '$insta_link', face_link = '$face_link', discord_link = '$discord_link', reddit_link = '$reddit_link'");

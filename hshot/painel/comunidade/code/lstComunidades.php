@@ -57,6 +57,7 @@ if (count($res) > 0) {
                                     <a href="#" class="text-decoration-none" style="color: <?php echo $border_color ?>;" onclick="ativarComunidade(<?php echo $id_com ?>)"><i class="<?php echo $toggle_onoff ?> f-24"></i> Ligar/Desligar</a>
                                     <a href="#" class="text-decoration-none text-danger" onclick="eliminar(<?php echo $id_com ?>)"><i class="fa-solid fa-xmark f-24"></i> Eliminar</a>
                                     <a href="#" class="text-decoration-none text-primary" onclick="LinksModal(<?php echo $id_com ?>)"><i class="fa-solid fa-link f-24"></i> Configurar Links</a>
+                                    <a href="home.php?pag=feed&feed=<?=$id_com?>" class="text-decoration-none text-primary"><i class="fa-solid fa-people-group f-24"></i> Feed</a>
                                 </div>
                             </div>
                         <?php
