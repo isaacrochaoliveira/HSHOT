@@ -72,6 +72,13 @@
     font-style: italic;
 }
 
+.border-style {
+    padding: 20px 50px;
+    border: 2px solid rgba(116, 116, 116, 0.524);
+    border-radius: 20px;
+    box-shadow: 3px 2px 2px rgba(116, 116, 116);
+}
+
 /* CSS Document */
 
 body {
