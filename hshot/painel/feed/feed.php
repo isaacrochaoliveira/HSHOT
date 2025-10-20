@@ -21,8 +21,9 @@ if (count($res) > 0) {
             <div>
                 <h1 class="anton-regular"><?= $titulo ?></h1>
                 <hr>
-                <p class="arvo-regular f-16"><?= $descricao ?></p>
+                <p class="arvo-regular f-20"><strong><?= $descricao ?></strong></p>
                 <p class="arvo-regular f-16">Data de Criação: <u><?= $dataCriaçao_com ?></u></p>
+                <p class="arvo-regular">Ativo desde de: <?= $dataCriaçao_com ?></p>
                 <p class="arvo-regular">Atualmente a comunidade esta: <strong><u><?= $status ?></u></strong></p>
                 <hr>
                 <h3>Área do Pensamento <i class="fa-solid fa-comment"></i></h3>
@@ -103,12 +104,34 @@ if (count($res) > 0) {
                 success: function(response) {
                     if (response != '') {
                         $('#ModalMSG').modal('show');
-                        $('.msg-from-system').text(response[1]);
+                        $('.msg-from-system').text(response);
                     }
                     $('#pensamento').val();
                     feed();
                 }
             })
         })
+    }
+    function excluir_feed(id) {
+        var resp = confirm('Você tem certeza que deseja realmente excluir essa postagem');
+        if (resp) {
+            $(document).ready(function() {
+                $.ajax({
+                    url: 'painel/feed/code/ex_feed.php',
+                    method: 'post',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        $('#ModalMSG').modal('show');
+                        $('.msg-from-system').text(response);
+                        if (response == 'ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição!') {
+                            $('.msg-from-system').html('<p>ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição ou você pode <a href="#">forçar exclução...</a></p>');    
+                        }
+                        feed();
+                    }
+                })
+            })
+        }
     }
 </script>

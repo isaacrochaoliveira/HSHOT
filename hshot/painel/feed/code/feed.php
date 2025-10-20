@@ -9,28 +9,34 @@ $id = $_POST['id'];
 $sql = $pdo->query("SELECT * FROM feed_comunidades WHERE id_com = '$id'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) > 0) {
-    ?>
+?>
     <div class="d-flex flex-wrap gap-2 justify-content-center">
-    <?php
+        <?php
         for ($i = 0; $i < count($res); $i += 1) {
             $titulo = $res[$i]['titulo_feed'] ?? '...';
             $pensamento = $res[$i]['pensamento'];
-            
-            ?>
-            <div class="card" style="width: 18rem;">
+            $data = date('d/m/Y', strtotime($res[$i]['data']));
+        ?>
+            <div class="card" style="width: 30rem;">
                 <div class="card-body">
-                    <h5 class="card-title arvo-regular"><?php echo $titulo ?></h5>
+                    <div class="d-flex">
+                        <h5 class="card-title arvo-regular" style="width: 95%;"><?php echo $titulo ?></h5>
+                        <a href="#" onclick="excluir_feed(<?=$id?>)" class="text-danger"><i class="fa-solid fa-trash"></i></a>
+                    </div>
                     <h6 class="card-subtitle mb-2 text-body-secondary">&nbsp;</h6>
-                    <p class="card-text"><strong><?php echo $pensamento?></strong></p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <p class="card-text"><strong><?php echo $pensamento ?></strong></p>
+                    <hr>
+                    <div class="d-flex flex-wrap flex-column gap-2 f-16">
+                        <p class="my-0">Criado pelo Autor(a).</p>
+                        <p class="my-0">Data de Criação: <?php echo $data ?></p>
+                    </div>
                 </div>
             </div>
-            <?php
-    }
-    ?>
+        <?php
+        }
+        ?>
     </div>
-    <?php
+<?php
 } else {
     echo "Olá, Mundo!";
 }
