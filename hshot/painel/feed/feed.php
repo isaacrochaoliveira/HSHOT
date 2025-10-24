@@ -112,8 +112,11 @@ if (count($res) > 0) {
             })
         })
     }
-    function excluir_feed(id, id_com, pull = 'pull') {
+    function excluir_feed(id, id_com = 0, pull) {
         var resp = confirm('Você tem certeza que deseja realmente excluir essa postagem');
+        if (id_com == 0) {
+            var id_com = '<?=$_GET['feed']?>';            
+        }
         if (resp) {
             $(document).ready(function() {
                 $.ajax({

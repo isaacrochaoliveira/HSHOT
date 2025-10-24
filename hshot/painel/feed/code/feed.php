@@ -39,5 +39,5 @@ if (count($res) > 0) {
     </div>
 <?php
 } else {
-    echo "Olá, Mundo!";
+    echo "Esta comunidade ainda não postou nada!";
 }
