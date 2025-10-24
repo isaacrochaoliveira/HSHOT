@@ -112,7 +112,7 @@ if (count($res) > 0) {
             })
         })
     }
-    function excluir_feed(id) {
+    function excluir_feed(id, id_com, pull = 'pull') {
         var resp = confirm('Você tem certeza que deseja realmente excluir essa postagem');
         if (resp) {
             $(document).ready(function() {
@@ -120,13 +120,17 @@ if (count($res) > 0) {
                     url: 'painel/feed/code/ex_feed.php',
                     method: 'post',
                     data: {
-                        id: id
+                        id: id,
+                        id_com: id_com,
+                        pull: pull
                     },
                     success: function(response) {
+                        var response = response.split(';');
                         $('#ModalMSG').modal('show');
-                        $('.msg-from-system').text(response);
-                        if (response == 'ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição!') {
-                            $('.msg-from-system').html('<p>ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição ou você pode <a href="#">forçar exclução...</a></p>');    
+                        $('.msg-from-system').text(response[1]);
+                        if (response[1] == 'ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição!') {
+                            var postagem = response[0];
+                            $('.msg-from-system').html('<p>ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição ou você pode <a href="#" onclick="excluir_feed(' + postagem + ')">forçar exclução...</a></p>');    
                         }
                         feed();
                     }

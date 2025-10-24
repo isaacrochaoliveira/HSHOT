@@ -13,6 +13,7 @@ if (count($res) > 0) {
     <div class="d-flex flex-wrap gap-2 justify-content-center">
         <?php
         for ($i = 0; $i < count($res); $i += 1) {
+            $id_fc = $res[$i]['id_fc'];
             $titulo = $res[$i]['titulo_feed'] ?? '...';
             $pensamento = $res[$i]['pensamento'];
             $data = date('d/m/Y', strtotime($res[$i]['data']));
@@ -21,7 +22,7 @@ if (count($res) > 0) {
                 <div class="card-body">
                     <div class="d-flex">
                         <h5 class="card-title arvo-regular" style="width: 95%;"><?php echo $titulo ?></h5>
-                        <a href="#" onclick="excluir_feed(<?=$id?>)" class="text-danger"><i class="fa-solid fa-trash"></i></a>
+                        <a href="#" onclick="excluir_feed(<?=$id_fc?>, <?=$id?>, 'no pull')" class="text-danger"><i class="fa-solid fa-trash"></i></a>
                     </div>
                     <h6 class="card-subtitle mb-2 text-body-secondary">&nbsp;</h6>
                     <p class="card-text"><strong><?php echo $pensamento ?></strong></p>
