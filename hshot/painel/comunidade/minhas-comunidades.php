@@ -188,34 +188,25 @@ require_once 'db/autenticator.php';
         var pag = "<?= $pag ?>";
         event.preventDefault();
         var formData = new FormData(this);
-
         $.ajax({
-            beforeSend: function() {
-                $('#btnCComunidade').addClass('d-none');
-                $('.spinner-criar').removeClass('d-none');
-                setInterval(function() {
-                    $.ajax({
-                        url: 'painel/comunidade/code/criarComunidade.php',
-                        type: 'POST',
-                        data: formData,
-                        success: function(mensagem) {
-                            $("#btnCriarComunidadeEnd").click();
-                            readingComunidades();
-                        },
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        xhr: function() { // Custom XMLHttpRequest
-                            var myXhr = $.ajaxSettings.xhr();
-                            if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                                myXhr.upload.addEventListener('progress', function() {
-                                    /* faz alguma coisa durante o progresso do upload */
-                                }, false);
-                            }
-                            return myXhr;
-                        }
-                    });
-                }, 5000)
+            url: 'painel/comunidade/code/criarComunidade.php',
+            type: 'POST',
+            data: formData,
+            success: function(mensagem) {
+                $("#btnCriarComunidadeEnd").click();
+                readingComunidades();
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            xhr: function() { // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function() {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
             }
         })
     });
@@ -290,11 +281,11 @@ require_once 'db/autenticator.php';
                 url: 'painel/comunidade/code/salvar_links.php',
                 method: 'post',
                 data: {
-                    what_link:what_link,
+                    what_link: what_link,
                     insta_link: insta_link,
-                    face_link:face_link,
-                    discord_link:discord_link,
-                    reddit_link:reddit_link,
+                    face_link: face_link,
+                    discord_link: discord_link,
+                    reddit_link: reddit_link,
                     id: id
                 },
                 success: function(response) {
@@ -313,7 +304,7 @@ require_once 'db/autenticator.php';
         $(document).ready(function() {
             $.ajax({
                 url: 'painel/comunidade/code/getLinks.php',
-                method:'post',
+                method: 'post',
                 data: {
                     id: id
                 },

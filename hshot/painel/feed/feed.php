@@ -1,9 +1,11 @@
 <?php
+@session_start();
 $id = addslashes($_GET['feed']);
 
 $sql = $pdo->query("SELECT * FROM comunidades WHERE id_com = '$id'");
 $res = $sql->fetchAll(PDO::FETCH_ASSOC);
 if (count($res) > 0) {
+    $id_membro = $res[0]['id_mem'];
     $imagem = $res[0]['imagem_com'];
     $titulo = $res[0]['nome_com'];
     $descricao = $res[0]['desc_com'];
@@ -37,43 +39,46 @@ if (count($res) > 0) {
                 <p class="arvo-regular">Atualmente a comunidade esta: <strong><u><?= $status ?></u></strong></p>
                 <div>
                     <div class="d-flex flex-wrap f-26 gap-2">
-                        <?php 
-                            if (!(empty($what_link))) {
-                                ?>
-                                    <a href="<?=$what_link?>" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                                <?php
-                            }
-                            if (!(empty($insta_link))) {
-                                ?>
-                                    <a href="<?=$insta_link?>" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                                <?php
-                            }
-                            if (!(empty($face_link))) {
-                                ?>
-                                    <a href="<?=$face_link?>" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                                <?php
-                            }
-                            if (!(empty($discord_link))) {
-                                ?>
-                                    <a href="<?=$discord_link?>" target="_blank"><i class="fa-brands fa-discord"></i></a>
-                                <?php
-                            }
-                            if (!(empty($reddit_link))) {
-                                ?>
-                                    <a href="<?=$reddit_link?>" target="_blank"><i class="fa-brands fa-reddit"></i></a>
-                                <?php
-                            }
+                        <?php
+                        if (!(empty($what_link))) {
+                        ?>
+                            <a href="<?= $what_link ?>" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                        <?php
+                        }
+                        if (!(empty($insta_link))) {
+                        ?>
+                            <a href="<?= $insta_link ?>" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <?php
+                        }
+                        if (!(empty($face_link))) {
+                        ?>
+                            <a href="<?= $face_link ?>" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                        <?php
+                        }
+                        if (!(empty($discord_link))) {
+                        ?>
+                            <a href="<?= $discord_link ?>" target="_blank"><i class="fa-brands fa-discord"></i></a>
+                        <?php
+                        }
+                        if (!(empty($reddit_link))) {
+                        ?>
+                            <a href="<?= $reddit_link ?>" target="_blank"><i class="fa-brands fa-reddit"></i></a>
+                        <?php
+                        }
                         ?>
                     </div>
                 </div>
-                <hr>
-                <h3>Área do Pensamento <i class="fa-solid fa-comment"></i></h3>
-                <div class="form-group mb-2">
-                    <div class="form-floating">
-                        <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Titulo a publicação">
-                        <label for="titulo">Título</label>
+                <?php
+                if ($id_membro == $_SESSION['usuario']['id_membro']) {
+                    ?>
+                    <hr>
+                    <h3>Área do Pensamento <i class="fa-solid fa-comment"></i></h3>
+                    <div class="form-group mb-2">
+                        <div class="form-floating">
+                            <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Titulo a publicação">
+                            <label for="titulo">Título</label>
+                        </div>
                     </div>
-                </div>
                 <div class="form-group mb-3">
                     <div class="form-floating">
                         <textarea name="pensamento" id="pensamento" cols="30" rows="30" class="form-control" placeholder="No que você está pensamento hoje?"></textarea>
@@ -82,6 +87,9 @@ if (count($res) > 0) {
                 </div>
                 <button class="btn btn-danger" onclick="$('#pensamento').val(''); $('#titulo').val('')">Cancelar <i class="fa-solid fa-xmark"></i></button>
                 <button class="btn btn-success" onclick="salvar_publicacao()">Concluir <i class="fa-solid fa-check"></i></button>
+                <?php
+                }
+                ?>
             </div>
         </div>
         <div class="col-md-9">
@@ -140,7 +148,7 @@ if (count($res) > 0) {
                 data: {
                     id: id,
                     think: pensamento,
-                    titulo:titulo
+                    titulo: titulo
                 },
                 success: function(response) {
                     if (response != '') {
@@ -153,10 +161,11 @@ if (count($res) > 0) {
             })
         })
     }
+
     function excluir_feed(id, id_com = 0, pull) {
         var resp = confirm('Você tem certeza que deseja realmente excluir essa postagem');
         if (id_com == 0) {
-            var id_com = '<?=$_GET['feed']?>';            
+            var id_com = '<?= $_GET['feed'] ?>';
         }
         if (resp) {
             $(document).ready(function() {
@@ -174,7 +183,7 @@ if (count($res) > 0) {
                         $('.msg-from-system').text(response[1]);
                         if (response[1] == 'ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição!') {
                             var postagem = response[0];
-                            $('.msg-from-system').html('<p>ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição ou você pode <a href="#" onclick="excluir_feed(' + postagem + ')">forçar exclução...</a></p>');    
+                            $('.msg-from-system').html('<p>ERRO! Comunidade em estado ativo, não havendo a possibilidade de edição ou você pode <a href="#" onclick="excluir_feed(' + postagem + ')">forçar exclução...</a></p>');
                         }
                         feed();
                     }

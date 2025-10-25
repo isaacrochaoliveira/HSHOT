@@ -36,7 +36,7 @@ if (count($res) > 0) {
 
         ?>
             <div class="col-md-6">
-                <div class="card mb-3" style="max-width: 540px; border-right: 5px solid <?php echo $border_color ?>">
+                <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img src="<?php echo URL . 'imagens/comunidades/' . $imagem_com ?>" class="img-fluid rounded-start" alt="...">
@@ -63,8 +63,9 @@ if (count($res) > 0) {
                         <?php
                         } else {
                         ?>
-                            <div class="d-flex flex-wrap align-items-center justify-content-end mr-2">
-                                <div class="my-auto">
+                        <hr>
+                            <div class="d-flex flex-wrap align-items-center justify-content-end">
+                                <div class="my-auto" style="padding-right: 20px;">
                                     <a href="home.php?pag=feed&feed=<?= $id_com ?>" class="text-decoration-none text-primary"><i class="fa-solid fa-people-group f-24"></i> Feed</a>
                                 </div>
                             </div>
