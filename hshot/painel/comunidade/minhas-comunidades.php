@@ -328,9 +328,8 @@ require_once 'db/autenticator.php';
                         $('#id_comLinks').val(id);
                         $('#LinksModal').modal('show');
                     } else {
-                        $('#ModalMSG').modal('show');
-                        $('.msg-from-system').text(response[1]);
-                        readingComunidades();
+                        $('#id_comLinks').val(id);
+                        $('#LinksModal').modal('show');
                     }
                 }
             })

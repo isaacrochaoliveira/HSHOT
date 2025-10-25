@@ -10,13 +10,23 @@ if (count($res) > 0) {
     $status = $res[0]['status_com'];
 
     $dataCriaçao_com = date('d/m/Y', strtotime($res[0]['dataCriacao_com']));
+
+    $sql_links = $pdo->query("SELECT * FROM redessociascom WHERE id_com = '$id'");
+    $res_links = $sql_links->fetchAll(PDO::FETCH_ASSOC);
+    if (count($res_links) > 0) {
+        $what_link = $res_links[0]['what_link'];
+        $insta_link = $res_links[0]['insta_link'];
+        $face_link = $res_links[0]['face_link'];
+        $discord_link = $res_links[0]['discord_link'];
+        $reddit_link = $res_links[0]['reddit_link'];
+    }
 }
 
 ?>
 <div class="border-style">
     <div class="d-flex flex-wrap py-5">
         <div class="col-md-3">
-            <a href="home.php?pag=comunidade" class="btn btn-secondary f-20"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="#" onclick="javascript:history.go(-1)" class="btn btn-secondary f-20"><i class="fa-solid fa-arrow-left"></i></a>
             <img src="<?= URL ?>imagens/comunidades/<?php echo $imagem ?>" alt="" class="img-thumbnail">
             <div>
                 <h1 class="anton-regular"><?= $titulo ?></h1>
@@ -25,6 +35,37 @@ if (count($res) > 0) {
                 <p class="arvo-regular f-16">Data de Criação: <u><?= $dataCriaçao_com ?></u></p>
                 <p class="arvo-regular">Ativo desde de: <?= $dataCriaçao_com ?></p>
                 <p class="arvo-regular">Atualmente a comunidade esta: <strong><u><?= $status ?></u></strong></p>
+                <div>
+                    <div class="d-flex flex-wrap f-26 gap-2">
+                        <?php 
+                            if (!(empty($what_link))) {
+                                ?>
+                                    <a href="<?=$what_link?>" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                                <?php
+                            }
+                            if (!(empty($insta_link))) {
+                                ?>
+                                    <a href="<?=$insta_link?>" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                <?php
+                            }
+                            if (!(empty($face_link))) {
+                                ?>
+                                    <a href="<?=$face_link?>" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                                <?php
+                            }
+                            if (!(empty($discord_link))) {
+                                ?>
+                                    <a href="<?=$discord_link?>" target="_blank"><i class="fa-brands fa-discord"></i></a>
+                                <?php
+                            }
+                            if (!(empty($reddit_link))) {
+                                ?>
+                                    <a href="<?=$reddit_link?>" target="_blank"><i class="fa-brands fa-reddit"></i></a>
+                                <?php
+                            }
+                        ?>
+                    </div>
+                </div>
                 <hr>
                 <h3>Área do Pensamento <i class="fa-solid fa-comment"></i></h3>
                 <div class="form-group mb-2">

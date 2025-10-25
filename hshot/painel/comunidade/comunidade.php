@@ -101,7 +101,7 @@ require_once 'db/autenticator.php';
 
 <script>
     function readingComunidades() {
-        var pag = "<?php echo $_GET['pag'];?>"
+        var pag = "<?php echo $_GET['pag'];?>";
         $(document).ready(function() {
             $.ajax({
                 url: 'painel/comunidade/code/lstComunidades.php',

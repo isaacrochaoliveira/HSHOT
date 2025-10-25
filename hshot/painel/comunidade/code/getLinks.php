@@ -17,6 +17,6 @@ if (count($res) > 0) {
 
     echo "Datas;$what_link;$insta_link;$face_link;$discord_link;$reddit_link";
 } else {
-    echo "0;ERRO! Comunidade Não Encontrada!";
+    echo "0";
     exit();
 }
