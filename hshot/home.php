@@ -75,7 +75,7 @@ if (isset($_GET['pag'])) {
                         <li class="nav-item"><a href="home.php?pag=leitura" class="nav-link text-white px-2">Leitura <i class="fa-solid fa-book-bible"></i></a></li>
                         <li class="nav-item"><a href="home.php?pag=propositos" class="nav-link text-white px-2">Propósitos <i class="fa-solid fa-person-praying"></i></a></li>
                         <li class="nav-item"><a href="home.php?pag=comunidade" class="nav-link text-white px-2">Comunidades <i class="fa-solid fa-globe"></i></a></li>
-                        <li class="nav-item"><a href="#" class="nav-link text-white px-2">Perfil <i class="fa-regular fa-user"></i></a></li>
+                        <li class="nav-item"><a href="home.php?pag=perfil" class="nav-link text-white px-2">Perfil <i class="fa-regular fa-user"></i></a></li>
                     </ul>
                     <ul class="nav">
                         <?php
@@ -115,6 +115,8 @@ if (isset($_GET['pag'])) {
             require_once('painel/comunidade/minhas-comunidades.php');
         } else if ($pag == 'feed') {
             require_once('painel/feed/feed.php');
+        } else if ($pag == 'perfil') {
+            require_once('painel/perfil/perfil.php');
         } else {
             require_once 'painel/home.php';
         }
